@@ -168,6 +168,27 @@
     setTimeout(() => document.querySelectorAll('.id-card').forEach(c => c.style.opacity = '1'), 700);
   };
 
+
+  // ── BGM ───────────────────────────────────────────────
+  const bgm = document.getElementById('bgm');
+  const muteBtn = document.getElementById('mute-btn');
+  let muted = false;
+
+  function startBGM() {
+    if (!bgm) return;
+    bgm.volume = 0.35;
+    bgm.play().catch(() => {
+      // autoplay blocked — wait for first interaction
+      document.addEventListener('click', () => bgm.play(), { once: true });
+    });
+  }
+
+  window.toggleMute = function () {
+    muted = !muted;
+    if (bgm) bgm.muted = muted;
+    if (muteBtn) muteBtn.textContent = muted ? '🔇' : '🔊';
+  };
+
   // ── Loading sequence ───────────────────────────────────
   const loadMsgs = [
     'Connecting to campus network...',
@@ -192,6 +213,7 @@
         setTimeout(() => {
           document.getElementById('p-load').classList.remove('active');
           document.getElementById('p0').classList.add('active');
+          startBGM();
         }, 500);
         return;
       }
@@ -230,6 +252,38 @@
     const el = document.getElementById('warn-overlay');
     if (el) el.classList.remove('show');
   };
+
+
+  // ── BGM ───────────────────────────────────────────────
+  let bgm = null;
+  let bgmStarted = false;
+
+  function initBGM() {
+    if (bgmStarted) return;
+    bgmStarted = true;
+    bgm = new Audio('./img/bgm.mp3.mp3');
+    bgm.loop = true;
+    bgm.volume = 0.35;
+    bgm.play().catch(() => {});
+  }
+
+  // start on first click anywhere
+  document.addEventListener('click', initBGM, { once: true });
+  document.addEventListener('keydown', initBGM, { once: true });
+
+  // mute toggle button — inject into DOM
+  const muteBtn = document.createElement('button');
+  muteBtn.id = 'mute-btn';
+  muteBtn.textContent = '♪ BGM';
+  muteBtn.style.cssText = 'position:fixed;bottom:22px;right:80px;z-index:500;background:none;border:0.5px solid #2a4a20;color:#4a7a38;font-family:"IBM Plex Mono",monospace;font-size:8px;letter-spacing:0.14em;padding:4px 10px;cursor:pointer;transition:all 0.2s;';
+  muteBtn.onclick = () => {
+    if (!bgm) { initBGM(); return; }
+    bgm.muted = !bgm.muted;
+    muteBtn.textContent = bgm.muted ? '✕ BGM' : '♪ BGM';
+    muteBtn.style.color = bgm.muted ? '#5a3028' : '#4a7a38';
+    muteBtn.style.borderColor = bgm.muted ? '#3a2018' : '#2a4a20';
+  };
+  document.getElementById('app').appendChild(muteBtn);
 
   // ── Init ───────────────────────────────────────────────
   runLoader();
