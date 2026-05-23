@@ -76,70 +76,76 @@
 
   <!-- ══ P1: IDENTITY ══ -->
   <div class="page" id="p1">
-    <!-- warning overlay -->
     <div class="warn-overlay" id="warn-overlay">
       <div class="warn-text">WARNING<br>NO REST SPACE DETECTED</div>
     </div>
 
-    <div class="access-header">
-      <div class="access-eyebrow" id="t-p1eye">PAGE 02 — SPATIAL PRIVILEGE</div>
-      <div class="access-title" id="t-p1q">SELECT YOUR ACCESS LEVEL</div>
-      <div class="access-sub" id="t-p1sub">同一校园 · 不同身份 · 不同空间权限</div>
-    </div>
+    <!-- Full-bleed split -->
+    <div class="fs-split">
 
-    <div class="split-grid">
-
-      <!-- STUDENT — 35% -->
-      <div class="split-student" id="split-student">
-        <div class="split-bg split-student-bg"></div>
-        <div class="split-overlay student-overlay"></div>
-        <div class="split-content">
-          <div class="split-permit bright-permit-tag">STAY_PERMIT: FULL</div>
-          <div class="split-mode" id="t-student">STUDENT MODE</div>
-          <ul class="split-attrs">
+      <!-- LEFT: Student — 38% -->
+      <div class="fs-left" onclick="goPage(2)">
+        <div class="fs-bg fs-student-bg"></div>
+        <div class="fs-overlay fs-student-ov"></div>
+        <div class="fs-ui">
+          <div class="fs-permit green-permit">STAY_PERMIT: FULL</div>
+          <div class="fs-mode" id="t-student">STUDENT MODE</div>
+          <ul class="fs-list">
             <li class="bright-li" data-zh="坐着 · 聊天 · 学习" data-en="Sit · Chat · Study">坐着 · 聊天 · 学习</li>
-            <li class="bright-li" data-zh="明亮开放空间" data-en="Bright, open spaces">明亮开放空间</li>
-            <li class="bright-li" data-zh="存在不被质疑" data-en="Presence unquestioned">存在不被质疑</li>
+            <li class="bright-li" data-zh="明亮开放空间" data-en="Bright open spaces">明亮开放空间</li>
             <li class="bright-li" data-zh="无限时长停留" data-en="Stay as long as needed">无限时长停留</li>
+            <li class="bright-li" data-zh="存在不被质疑" data-en="Presence unquestioned">存在不被质疑</li>
           </ul>
-          <button class="split-btn student-btn" onclick="goPage(2)" id="t-p1btn-s">ENTER CAMPUS ›</button>
+          <div class="fs-cta green-cta" id="t-p1btn-s">ENTER CAMPUS ›</div>
         </div>
       </div>
 
-      <!-- CLEANER — 65% -->
-      <div class="split-cleaner" id="split-cleaner"
-           onmouseenter="showWarning()" onmouseleave="hideWarning()">
-        <div class="split-bg split-cleaner-bg"></div>
-        <div class="split-overlay cleaner-overlay"></div>
-        <div class="cleaner-noise"></div>
-        <div class="cleaner-scanline"></div>
+      <!-- DIVIDER -->
+      <div class="fs-divider">
+        <div class="fs-div-line"></div>
+        <div class="fs-div-label" id="t-p1q">SELECT YOUR<br>ACCESS LEVEL</div>
+        <div class="fs-div-sub" id="t-p1sub">请选择你的空间权限</div>
+        <div class="fs-div-line"></div>
+      </div>
 
-        <!-- monitoring UI -->
+      <!-- RIGHT: Cleaner — 62% -->
+      <div class="fs-right" onclick="goPage(2)"
+           onmouseenter="showWarning()" onmouseleave="hideWarning()">
+        <div class="fs-bg fs-cleaner-bg"></div>
+        <div class="fs-overlay fs-cleaner-ov"></div>
+        <div class="fs-noise"></div>
+        <div class="fs-scan"></div>
+        <div class="glitch-line" style="top:18%;animation-delay:0s"></div>
+        <div class="glitch-line" style="top:52%;animation-delay:0.8s"></div>
+        <div class="glitch-line" style="top:76%;animation-delay:1.6s"></div>
+
+        <!-- monitoring corners -->
         <div class="mon-tl blink">MONITORING...</div>
         <div class="mon-tr">ACTIVE TASK: <span class="red">03</span></div>
         <div class="mon-bl">CL-0047 · SHIFT ACTIVE</div>
 
-        <div class="split-content cleaner-content">
-          <div class="split-permit red-permit-tag blink">STAY_PERMIT: NONE</div>
-          <div class="split-mode cleaner-mode" id="t-cleaner">CLEANER MODE</div>
-          <ul class="split-attrs">
+        <div class="fs-ui fs-ui-right">
+          <div class="fs-permit red-permit blink">STAY_PERMIT: NONE</div>
+          <div class="fs-mode fs-cleaner-mode" id="t-cleaner">CLEANER MODE</div>
+          <ul class="fs-list">
             <li class="dim-li" data-zh="持续移动 · 无法停留" data-en="Keep moving, no staying">持续移动 · 无法停留</li>
-            <li class="dim-li" data-zh="狭窄功能化空间" data-en="Narrow, functional spaces">狭窄功能化空间</li>
-            <li class="dim-li" data-zh="存在被系统监控" data-en="Presence monitored by system">存在被系统监控</li>
-            <li class="dim-li" data-zh="休息随时被中断" data-en="Rest interrupted at any time">休息随时被中断</li>
+            <li class="dim-li" data-zh="狭窄功能化空间" data-en="Narrow functional spaces">狭窄功能化空间</li>
+            <li class="dim-li" data-zh="休息随时被中断" data-en="Rest interrupted anytime">休息随时被中断</li>
+            <li class="dim-li" data-zh="存在被系统监控" data-en="Presence monitored">存在被系统监控</li>
           </ul>
-          <button class="split-btn cleaner-btn" onclick="goPage(2)" id="t-p1btn-c">START PATROL ›</button>
+          <div class="fs-cta red-cta" id="t-p1btn-c">START PATROL ›</div>
         </div>
-
-        <!-- glitch lines -->
-        <div class="glitch-line" style="top:22%;animation-delay:0s"></div>
-        <div class="glitch-line" style="top:55%;animation-delay:0.7s"></div>
-        <div class="glitch-line" style="top:78%;animation-delay:1.3s"></div>
       </div>
 
     </div>
 
-    <div class="access-footer" id="t-p1note">本展览以 CLEANER MODE 运行 — THIS EXHIBITION RUNS IN CLEANER MODE</div>
+    <!-- Header overlay -->
+    <div class="fs-header">
+      <div class="fs-eyebrow" id="t-p1eye">PAGE 02 — SPATIAL PRIVILEGE</div>
+    </div>
+
+    <!-- Footer -->
+    <div class="fs-footer" id="t-p1note">本展览以 CLEANER MODE 运行 — THIS EXHIBITION RUNS IN CLEANER MODE</div>
   </div>
 
   <!-- ══ P2: SPACE MAP ══ -->

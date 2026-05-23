@@ -243,6 +243,23 @@
   });
 
 
+
+  // ── P0 → P1 zoom-push transition ──────────────────────
+  window.enterSystem = function () {
+    const p0 = document.getElementById('p0');
+    if (!p0) return;
+    p0.style.animation = 'zoomPush 0.7s ease forwards';
+    setTimeout(() => {
+      p0.classList.remove('active');
+      p0.style.animation = '';
+      const p1 = document.getElementById('p1');
+      if (p1) p1.classList.add('active');
+      if (dots[0]) dots[0].classList.add('active');
+      cur = 0;
+      if (hudLoc) hudLoc.textContent = 'LOC: CAMPUS_GATE';
+    }, 650);
+  };
+
   // ── Warning overlay on cleaner hover ──────────────────
   window.showWarning = function () {
     const el = document.getElementById('warn-overlay');
