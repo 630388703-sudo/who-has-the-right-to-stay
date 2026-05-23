@@ -4,16 +4,19 @@
   // ── Language data ──────────────────────────────────────
   const T = {
     zh: {
-      'sdg':      'SDG 8 — 体面工作与经济增长',
-      'title':    '谁有权停留？',
-      'titlesub': 'WHO HAS THE RIGHT TO STAY?',
-      'sys':      '校园设施管理系统',
-      'msg':      '请开始今日清洁任务',
+      'sdg':'SDG 8 — 体面工作与经济增长',
+      'title':'谁有权停留？',
+      'titlesub':'WHO HAS THE RIGHT TO STAY?',
+      'sys':'校园设施管理系统',
+      'msg':'请开始今日清洁任务',
       's1':'广播声','s2':'电流声','s3':'对讲机',
-      'enter':    '进入系统 ›',
-      'p1eye':'PAGE 02 — 身份选择','p1q':'选择你的身份','p1sub':'同一校园，不同身份拥有不同空间权限',
+      'enter':'进入系统 ›',
+      'p1eye':'PAGE 02 — 空间权限',
+      'p1q':'SELECT YOUR ACCESS LEVEL',
+      'p1sub':'请选择你的空间权限 · 同一校园，不同身份',
       'student':'STUDENT MODE','cleaner':'CLEANER MODE',
-      'p1note':'本展览以 CLEANER MODE 运行','p1btn':'CONTINUE ›',
+      'p1note':'本展览以 CLEANER MODE 运行 — THIS EXHIBITION RUNS IN CLEANER MODE',
+      'p1btn-s':'ENTER CAMPUS ›','p1btn-c':'START PATROL ›',
       'p2eye':'PAGE 03 — 空间地图','p2title':'CAMPUS SPACE ALLOCATION','p2sub':'同一校园，空间归属完全不同',
       'scol':'学生空间','ccol':'劳动者空间','same':'同一\n校园',
       's-i1':'教室','s-t1':'正式停留 · 无限时长',
@@ -54,16 +57,19 @@
       'restart':'↺ 重新开始',
     },
     en: {
-      'sdg':      'SDG 8 — DECENT WORK & ECONOMIC GROWTH',
-      'title':    'WHO HAS THE RIGHT TO STAY?',
-      'titlesub': '谁有权停留？',
-      'sys':      'CAMPUS FACILITY MANAGEMENT SYSTEM',
-      'msg':      'PLEASE START TODAY\'S CLEANING TASK',
+      'sdg':'SDG 8 — DECENT WORK & ECONOMIC GROWTH',
+      'title':'WHO HAS THE RIGHT TO STAY?',
+      'titlesub':'谁有权停留？',
+      'sys':'CAMPUS FACILITY MANAGEMENT SYSTEM',
+      'msg':"PLEASE START TODAY'S CLEANING TASK",
       's1':'PA System','s2':'Electric hum','s3':'Walkie-talkie',
-      'enter':    'ENTER SYSTEM ›',
-      'p1eye':'PAGE 02 — IDENTITY','p1q':'Choose Your Identity','p1sub':'Same campus, different spatial permissions',
+      'enter':'ENTER SYSTEM ›',
+      'p1eye':'PAGE 02 — SPATIAL PRIVILEGE',
+      'p1q':'SELECT YOUR ACCESS LEVEL',
+      'p1sub':'Same campus · Different identity · Different spatial rights',
       'student':'STUDENT MODE','cleaner':'CLEANER MODE',
-      'p1note':'This exhibition runs in CLEANER MODE','p1btn':'CONTINUE ›',
+      'p1note':'This exhibition runs in CLEANER MODE',
+      'p1btn-s':'ENTER CAMPUS ›','p1btn-c':'START PATROL ›',
       'p2eye':'PAGE 03 — SPACE MAP','p2title':'CAMPUS SPACE ALLOCATION','p2sub':'Same campus, completely different access',
       'scol':'STUDENT SPACE','ccol':'CLEANER SPACE','same':'SAME\nCAMPUS',
       's-i1':'Classroom','s-t1':'Formal stay · Unlimited',
@@ -77,7 +83,7 @@
       'c-i4':'By Cleaning Cart','c-t4':'Informal · Can be cut short',
       'ctotal':'TEMPORARY STAY ONLY',
       'p2btn':'NEXT ›',
-      'p3eye':'PAGE 04 — LABOR PATH','p3title':'A DAY IN CLEANER MODE','p3sub':'A cleaner\'s daily route',
+      'p3eye':'PAGE 04 — LABOR PATH','p3title':'A DAY IN CLEANER MODE','p3sub':"A cleaner's daily route",
       'tl1n':'Utility Room','tl1d':'✓ Only permitted rest space — collect tools, start shift',
       'tl2n':'Classroom Corridor','tl2d':'✗ Transit zone — sweep, mop, replace bin bags',
       'tl3n':'Restroom','tl3d':'✗ Functional zone — clean, disinfect, restock',
@@ -96,11 +102,11 @@
       'd2label':'Work Intensity','m1':'Daily work hours','m2':'Daily steps','m3':'Rest rooms','m4':'Designated seats',
       'd3label':'Rest Interruptions Today','leg1':'Attempted rest','leg2':'System interrupted',
       'p5btn':'ENTER EXPERIENCE ›',
-      'complete':'TODAY\'S CLEANING TASK COMPLETED',
+      'complete':"TODAY'S CLEANING TASK COMPLETED",
       'fq1':'WHO HAS THE','fq2':'RIGHT TO STAY?',
       'fstmt':'Workers exist in public spaces every day,\nyet have no space truly their own.',
       'fs1':'Zones cleaned','fs2':'Rest spaces','fs3':'Interrupted','fs4':'No seat',
-      'vrlabel':'NEXT STEP','vrtitle':'ENTER VR EXPERIENCE','vrsub':'Put on VR headset to experience a cleaner\'s day in first person',
+      'vrlabel':'NEXT STEP','vrtitle':'ENTER VR EXPERIENCE','vrsub':"Put on VR headset to experience a cleaner's day",
       'restart':'↺ RESTART',
     }
   };
@@ -116,7 +122,6 @@
     });
     document.getElementById('lb-zh').classList.toggle('lang-active', l === 'zh');
     document.getElementById('lb-en').classList.toggle('lang-active', l === 'en');
-    // data-zh/en attributes on li items
     document.querySelectorAll('[data-zh]').forEach(el => {
       el.textContent = el.getAttribute('data-' + l) || el.textContent;
     });
@@ -124,7 +129,7 @@
 
   // ── Pages ──────────────────────────────────────────────
   const PAGES = ['p0','p1','p2','p3','p4','p5','p6'];
-  const LOCS  = ['UTILITY_ROOM_B2','CAMPUS_MAIN','ZONE_MAP','LABOR_PATH','STAIRWELL_7','DATA_CENTER','EXIT_18:00'];
+  const LOCS  = ['UTILITY_ROOM_B2','CAMPUS_GATE','ZONE_MAP','LABOR_PATH','STAIRWELL_7','DATA_CENTER','EXIT_18:00'];
   const dots  = document.querySelectorAll('.dot');
   let cur = 0;
 
@@ -133,22 +138,41 @@
 
   window.goPage = function (n) {
     if (n < 0 || n >= PAGES.length) return;
-    document.getElementById(PAGES[cur]).classList.remove('active');
-    document.getElementById(PAGES[n]).classList.add('active');
+    const fromEl = document.getElementById(PAGES[cur]);
+    const toEl   = document.getElementById(PAGES[n]);
+    if (fromEl) fromEl.classList.remove('active');
+    if (toEl)   toEl.classList.add('active');
     if (dots[cur]) dots[cur].classList.remove('active');
     if (dots[n])   dots[n].classList.add('active');
     cur = n;
     if (hudLoc) hudLoc.textContent = 'LOC: ' + LOCS[n];
-    if (n === PAGES.length - 1 && document.getElementById('hud-br')) {
-      document.getElementById('hud-br').innerHTML = 'STAY_PERMIT: <span class="red">STILL NONE</span>';
+    if (n === PAGES.length - 1) {
+      const br = document.getElementById('hud-br');
+      if (br) br.innerHTML = 'STAY_PERMIT: <span class="red">STILL NONE</span>';
     }
+  };
+
+  // ── P0 → P1 zoom-push ─────────────────────────────────
+  window.enterSystem = function () {
+    const p0 = document.getElementById('p0');
+    if (!p0) return;
+    p0.style.animation = 'zoomPush 0.7s ease forwards';
+    setTimeout(() => {
+      p0.classList.remove('active');
+      p0.style.animation = '';
+      const p1 = document.getElementById('p1');
+      if (p1) p1.classList.add('active');
+      if (dots[0]) dots[0].classList.add('active');
+      cur = 0;
+      if (hudLoc) hudLoc.textContent = 'LOC: CAMPUS_GATE';
+    }, 650);
   };
 
   // ── Alert mechanic ─────────────────────────────────────
   let alertCount = 0;
   const alertMsgs = {
-    zh: ['当前区域不支持长时间停留', '检测到新清洁任务，请立即继续巡查', '停留请求已被拒绝，请立即恢复工作'],
-    en: ['Current Area Does Not Support Long Stay', 'New Cleaning Task Detected — Please Continue Patrol', 'STAY REQUEST DENIED — Resume Duties Immediately'],
+    zh: ['当前区域不支持长时间停留','检测到新清洁任务，请立即继续巡查','停留请求已被拒绝，请立即恢复工作'],
+    en: ['Current Area Does Not Support Long Stay','New Cleaning Task Detected — Please Continue Patrol','STAY REQUEST DENIED — Resume Duties Immediately'],
   };
   window.triggerAlert = function () {
     const popup = document.getElementById('sys-popup');
@@ -168,9 +192,18 @@
     setTimeout(() => document.querySelectorAll('.id-card').forEach(c => c.style.opacity = '1'), 700);
   };
 
+  // ── Warning overlay ────────────────────────────────────
+  window.showWarning = function () {
+    const el = document.getElementById('warn-overlay');
+    if (el) el.classList.add('show');
+  };
+  window.hideWarning = function () {
+    const el = document.getElementById('warn-overlay');
+    if (el) el.classList.remove('show');
+  };
 
   // ── BGM ───────────────────────────────────────────────
-  const bgm = document.getElementById('bgm');
+  const bgm    = document.getElementById('bgm');
   const muteBtn = document.getElementById('mute-btn');
   let muted = false;
 
@@ -178,7 +211,6 @@
     if (!bgm) return;
     bgm.volume = 0.35;
     bgm.play().catch(() => {
-      // autoplay blocked — wait for first interaction
       document.addEventListener('click', () => bgm.play(), { once: true });
     });
   }
@@ -195,44 +227,47 @@
     'Loading spatial data...',
     'Assigning identity: CLEANER_MODE',
     'STAY_PERMIT check... DENIED',
-    'Loading today\'s task list...',
+    "Loading today's task list...",
     'System ready.',
   ];
 
   function runLoader() {
-    const bar    = document.getElementById('load-bar');
-    const pct    = document.getElementById('load-pct');
-    const log    = document.getElementById('load-log');
+    const bar = document.getElementById('load-bar');
+    const pct = document.getElementById('load-pct');
+    const log = document.getElementById('load-log');
     if (!bar) return;
     log.innerHTML = '';
     let step = 0;
-    const steps = loadMsgs.length;
 
     function tick() {
-      if (step >= steps) {
+      if (step >= loadMsgs.length) {
         setTimeout(() => {
-          document.getElementById('p-load').classList.remove('active');
-          document.getElementById('p0').classList.add('active');
-        }, 500);
+          const pload = document.getElementById('p-load');
+          const p0    = document.getElementById('p0');
+          if (pload) pload.classList.remove('active');
+          if (p0)    p0.classList.add('active');
+          startBGM();
+        }, 600);
         return;
       }
-      const progress = Math.round(((step + 1) / steps) * 100);
+      const progress = Math.round(((step + 1) / loadMsgs.length) * 100);
       bar.style.width = progress + '%';
-      pct.textContent = progress + '%';
+      if (pct) pct.textContent = progress + '%';
       const line = document.createElement('div');
       line.className = 'load-line';
       line.textContent = '> ' + loadMsgs[step];
       log.appendChild(line);
       log.scrollTop = log.scrollHeight;
       step++;
-      setTimeout(tick, 420 + Math.random() * 280);
+      setTimeout(tick, 400 + Math.random() * 300);
     }
-    setTimeout(tick, 300);
+    setTimeout(tick, 400);
   }
 
   // ── HUD blink ──────────────────────────────────────────
   setInterval(() => {
-    if (hudStatus) hudStatus.textContent = hudStatus.textContent === 'SYSTEM ACTIVE' ? 'MONITORING...' : 'SYSTEM ACTIVE';
+    if (hudStatus) hudStatus.textContent =
+      hudStatus.textContent === 'SYSTEM ACTIVE' ? 'MONITORING...' : 'SYSTEM ACTIVE';
   }, 2000);
 
   // ── Keyboard ───────────────────────────────────────────
@@ -241,66 +276,7 @@
     if (e.key === 'ArrowLeft')  { e.preventDefault(); goPage(Math.max(0, cur - 1)); }
   });
 
-
-
-  // ── P0 → P1 zoom-push transition ──────────────────────
-  window.enterSystem = function () {
-    const p0 = document.getElementById('p0');
-    if (!p0) return;
-    p0.style.animation = 'zoomPush 0.7s ease forwards';
-    setTimeout(() => {
-      p0.classList.remove('active');
-      p0.style.animation = '';
-      const p1 = document.getElementById('p1');
-      if (p1) p1.classList.add('active');
-      if (dots[0]) dots[0].classList.add('active');
-      cur = 0;
-      if (hudLoc) hudLoc.textContent = 'LOC: CAMPUS_GATE';
-    }, 650);
-  };
-
-  // ── Warning overlay on cleaner hover ──────────────────
-  window.showWarning = function () {
-    const el = document.getElementById('warn-overlay');
-    if (el) el.classList.add('show');
-  };
-  window.hideWarning = function () {
-    const el = document.getElementById('warn-overlay');
-    if (el) el.classList.remove('show');
-  };
-
-
-  // ── BGM ───────────────────────────────────────────────
-  let bgm = null;
-  let bgmStarted = false;
-
-  function initBGM() {
-    if (bgmStarted) return;
-    bgmStarted = true;
-    bgm = new Audio('./img/bgm.mp3.mp3');
-    bgm.loop = true;
-    bgm.volume = 0.35;
-    bgm.play().catch(() => {});
-  }
-
-  // start on first click anywhere
-  document.addEventListener('click', initBGM, { once: true });
-  document.addEventListener('keydown', initBGM, { once: true });
-
-  // mute toggle button — inject into DOM
-  const muteBtn = document.createElement('button');
-  muteBtn.id = 'mute-btn';
-  muteBtn.textContent = '♪ BGM';
-  muteBtn.style.cssText = 'position:fixed;bottom:22px;right:80px;z-index:500;background:none;border:0.5px solid #2a4a20;color:#4a7a38;font-family:"IBM Plex Mono",monospace;font-size:8px;letter-spacing:0.14em;padding:4px 10px;cursor:pointer;transition:all 0.2s;';
-  muteBtn.onclick = () => {
-    if (!bgm) { initBGM(); return; }
-    bgm.muted = !bgm.muted;
-    muteBtn.textContent = bgm.muted ? '✕ BGM' : '♪ BGM';
-    muteBtn.style.color = bgm.muted ? '#5a3028' : '#4a7a38';
-    muteBtn.style.borderColor = bgm.muted ? '#3a2018' : '#2a4a20';
-  };
-  document.getElementById('app').appendChild(muteBtn);
-
-  // ── Init ───────────────────────────────────────────────
+  // ── Init ──────────────────────────────────────────────
   runLoader();
+
 })();
