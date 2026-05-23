@@ -76,57 +76,72 @@
 
   <!-- ══ P1: IDENTITY ══ -->
   <div class="page" id="p1">
+
+    <!-- Warning overlay -->
     <div class="warn-overlay" id="warn-overlay">
       <div class="warn-text">WARNING<br>NO REST SPACE DETECTED</div>
     </div>
 
-    <div class="identity-wrap">
-      <div class="page-eyebrow" id="t-p1eye">PAGE 02 — SPATIAL PRIVILEGE</div>
-      <div class="identity-q" id="t-p1q">SELECT YOUR ACCESS LEVEL</div>
-      <div class="identity-sub" id="t-p1sub">请选择你的空间权限 · 同一校园，不同身份</div>
+    <!-- Header -->
+    <div class="fs-header-50">
+      <div class="fs-eyebrow-50" id="t-p1eye">PAGE 02 — SPATIAL PRIVILEGE</div>
+      <div class="fs-title-50" id="t-p1q">SELECT YOUR ACCESS LEVEL</div>
+      <div class="fs-sub-50" id="t-p1sub">请选择你的空间权限 · 同一校园，不同身份</div>
+    </div>
 
-      <div class="identity-grid">
+    <!-- 50/50 split -->
+    <div class="fs-split-50">
 
-        <!-- Student card -->
-        <div class="id-card student-card" onclick="goPage(2)">
-          <div class="id-mode-label bright-label" id="t-student">STUDENT MODE</div>
-          <div class="id-icon">🎒</div>
-          <ul class="id-attrs">
-            <li class="bright-li" data-zh="坐着 · 聊天 · 学习" data-en="Sit · Chat · Study">坐着 · 聊天 · 学习</li>
-            <li class="bright-li" data-zh="明亮开放空间" data-en="Bright open spaces">明亮开放空间</li>
-            <li class="bright-li" data-zh="无限时长停留" data-en="Stay as long as needed">无限时长停留</li>
-            <li class="bright-li" data-zh="存在不被质疑" data-en="Presence unquestioned">存在不被质疑</li>
+      <!-- LEFT: Student -->
+      <div class="fs-half" onclick="goPage(2)">
+        <div class="fs-half-bg fs-student-half-bg"></div>
+        <div class="fs-half-ov fs-student-half-ov"></div>
+        <div class="fs-half-content">
+          <div class="fs-half-permit sh-permit">STAY_PERMIT: FULL</div>
+          <div class="fs-half-mode sh-mode" id="t-student">STUDENT MODE</div>
+          <ul class="fs-half-list">
+            <li class="sh-li" data-zh="坐着 · 聊天 · 学习" data-en="Sit · Chat · Study">坐着 · 聊天 · 学习</li>
+            <li class="sh-li" data-zh="明亮开放空间" data-en="Bright open spaces">明亮开放空间</li>
+            <li class="sh-li" data-zh="无限时长停留" data-en="Stay as long as needed">无限时长停留</li>
+            <li class="sh-li" data-zh="存在不被质疑" data-en="Presence unquestioned">存在不被质疑</li>
           </ul>
-          <div class="id-permit bright-permit">STAY_PERMIT: FULL</div>
-          <div class="id-cta green-cta-small" id="t-p1btn-s">ENTER CAMPUS ›</div>
+          <div class="fs-half-cta sh-cta" id="t-p1btn-s">ENTER CAMPUS ›</div>
         </div>
-
-        <div class="id-vs">VS</div>
-
-        <!-- Cleaner card -->
-        <div class="id-card cleaner-card"
-             onclick="goPage(2)"
-             onmouseenter="showWarning()" onmouseleave="hideWarning()">
-          <div class="mon-tl-card blink">MONITORING...</div>
-          <div class="mon-tr-card">TASK: <span class="red">03</span></div>
-          <div class="id-mode-label dim-label" id="t-cleaner">CLEANER MODE</div>
-          <div class="id-icon dim-icon">🧤</div>
-          <ul class="id-attrs">
-            <li class="dim-li" data-zh="持续移动 · 无法停留" data-en="Keep moving, no staying">持续移动 · 无法停留</li>
-            <li class="dim-li" data-zh="狭窄功能化空间" data-en="Narrow functional spaces">狭窄功能化空间</li>
-            <li class="dim-li" data-zh="休息随时被中断" data-en="Rest interrupted anytime">休息随时被中断</li>
-            <li class="dim-li" data-zh="存在被系统监控" data-en="Presence monitored">存在被系统监控</li>
-          </ul>
-          <div class="id-permit red-permit blink">STAY_PERMIT: NONE</div>
-          <div class="glitch-line" style="top:30%;animation-delay:0s"></div>
-          <div class="glitch-line" style="top:65%;animation-delay:1.1s"></div>
-          <div class="id-cta red-cta-small" id="t-p1btn-c">START PATROL ›</div>
-        </div>
-
       </div>
 
-      <div class="id-note" id="t-p1note">本展览以 CLEANER MODE 运行 — THIS EXHIBITION RUNS IN CLEANER MODE</div>
+      <!-- Divider -->
+      <div class="fs-divider-50"></div>
+
+      <!-- RIGHT: Cleaner -->
+      <div class="fs-half" onclick="goPage(2)"
+           onmouseenter="showWarning()" onmouseleave="hideWarning()">
+        <div class="fs-half-bg fs-cleaner-half-bg"></div>
+        <div class="fs-half-ov fs-cleaner-half-ov"></div>
+        <div class="fs-half-noise"></div>
+        <div class="fs-half-scan"></div>
+        <div class="glitch-line" style="top:20%;animation-delay:0s"></div>
+        <div class="glitch-line" style="top:58%;animation-delay:0.9s"></div>
+        <div class="glitch-line" style="top:80%;animation-delay:1.7s"></div>
+        <div class="fs-mon-tl blink">MONITORING...</div>
+        <div class="fs-mon-tr">ACTIVE TASK: <span class="red">03</span></div>
+        <div class="fs-half-content">
+          <div class="fs-half-permit ch-permit blink">STAY_PERMIT: NONE</div>
+          <div class="fs-half-mode ch-mode" id="t-cleaner">CLEANER MODE</div>
+          <ul class="fs-half-list">
+            <li class="ch-li" data-zh="持续移动 · 无法停留" data-en="Keep moving, no staying">持续移动 · 无法停留</li>
+            <li class="ch-li" data-zh="狭窄功能化空间" data-en="Narrow functional spaces">狭窄功能化空间</li>
+            <li class="ch-li" data-zh="休息随时被中断" data-en="Rest interrupted anytime">休息随时被中断</li>
+            <li class="ch-li" data-zh="存在被系统监控" data-en="Presence monitored">存在被系统监控</li>
+          </ul>
+          <div class="fs-half-cta ch-cta" id="t-p1btn-c">START PATROL ›</div>
+        </div>
+      </div>
+
     </div>
+
+    <!-- Footer -->
+    <div class="fs-footer-50" id="t-p1note">本展览以 CLEANER MODE 运行 — THIS EXHIBITION RUNS IN CLEANER MODE</div>
+
   </div>
 
   <!-- ══ P2: SPACE MAP ══ -->
