@@ -5,256 +5,206 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>WHO HAS THE RIGHT TO STAY? — 沉浸式数字展览</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500&family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div id="app">
-    <div class="scanline"></div>
-    <div class="noise"></div>
+<div id="app">
 
-    <div class="hud-corner tl" id="hud-tl">SYSTEM ACTIVE</div>
-    <div class="hud-corner tr" id="hud-tr">ID: CL-0047</div>
-    <div class="hud-corner bl" id="hud-bl">LOC: CAMPUS_MAIN</div>
-    <div class="hud-corner br" id="hud-br">STAY_PERMIT: NONE</div>
+  <!-- Overlays -->
+  <div class="scanline"></div>
+  <div class="vignette"></div>
 
-    <!-- Screen 0: Boot -->
-    <div class="screen active" id="s0">
-      <div class="sys-label">Campus Facility Management System</div>
-      <div class="big-time" id="clock">06:30</div>
-      <div style="margin-top:8px; font-size:9px; color:#3a5a3a; letter-spacing:0.2em;">TODAY'S SHIFT BEGINS</div>
-      <div class="sys-msg">PLEASE START TODAY'S CLEANING TASK</div>
-      <button class="prompt-btn" onclick="nextStage()">ENTER SYSTEM ›</button>
+  <!-- HUD -->
+  <div class="hud hud-tl" id="hud-tl">MONITORING...</div>
+  <div class="hud hud-tr">ID: CL-0047</div>
+  <div class="hud hud-bl" id="hud-bl">LOC: CAMPUS_MAIN</div>
+  <div class="hud hud-br" id="hud-br">STAY_PERMIT: <span class="red">NONE</span></div>
+
+  <!-- Progress -->
+  <div class="progress-track"><div class="progress-fill" id="progress"></div></div>
+
+  <!-- ══ S0: BOOT ══════════════════════════════════════════ -->
+  <div class="screen active" id="s0">
+    <div class="boot-bg"></div>
+    <div class="boot-content">
+      <div class="sys-small">CAMPUS FACILITY MANAGEMENT SYSTEM v2.4</div>
+      <div class="boot-time">06:30</div>
+      <div class="boot-sub">— TODAY'S SHIFT BEGINS —</div>
+      <div class="blink-msg">PLEASE START TODAY'S CLEANING TASK</div>
+      <div class="glove-hint">🧤</div>
+      <button class="enter-btn" onclick="go(1)">ENTER SYSTEM ›</button>
+    </div>
+  </div>
+
+  <!-- ══ S1: UTILITY ROOM ══════════════════════════════════ -->
+  <div class="screen" id="s1">
+    <div class="scene-bg utility-bg"></div>
+    <div class="scene-overlay"></div>
+
+    <div class="zone-label">ZONE 00 — UTILITY ROOM / 后勤工具间</div>
+    <div class="id-badge">CLEANER MODE</div>
+
+    <div class="task-log">
+      <div class="log-line">&gt; Task assigned: 06:30</div>
+      <div class="log-line">&gt; Location: Utility Room B2</div>
+      <div class="log-line">&gt; Status: <span class="green">STANDBY</span></div>
     </div>
 
-    <!-- Screen 1: Utility Room -->
-    <div class="screen" id="s1">
-      <div class="space-view">
-        <div class="space-name">ZONE 00 — UTILITY ROOM / 后勤工具间</div>
-        <div class="identity-tag">CLEANER MODE</div>
-        <div class="task-log">
-          <div>> Task assigned: 06:30</div>
-          <div>> Location: Utility Room B2</div>
-          <div>> Status: <span style="color:#5a8a4a">STANDBY</span></div>
-        </div>
-        <div class="first-person-view">
-          <div class="room-frame">
-            <svg width="420" height="280" viewBox="0 0 420 280" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <rect x="0" y="0" width="420" height="280" fill="#080d08"/>
-              <polygon points="40,280 380,280 320,160 100,160" fill="#0d120d" stroke="#1a2a1a" stroke-width="0.5"/>
-              <line x1="100" y1="160" x2="40" y2="280" stroke="#1a2a1a" stroke-width="0.5"/>
-              <line x1="320" y1="160" x2="380" y2="280" stroke="#1a2a1a" stroke-width="0.5"/>
-              <line x1="100" y1="160" x2="320" y2="160" stroke="#1a2a1a" stroke-width="0.5"/>
-              <rect x="80" y="90" width="60" height="80" rx="1" fill="#0a100a" stroke="#1e2e1e" stroke-width="0.5"/>
-              <rect x="86" y="96" width="48" height="68" rx="0" fill="#060c06"/>
-              <rect x="92" y="105" width="8" height="45" rx="0" fill="#1a2a1a"/>
-              <rect x="106" y="105" width="8" height="45" rx="0" fill="#1a2a1a"/>
-              <rect x="120" y="105" width="8" height="45" rx="0" fill="#1a2a1a"/>
-              <text x="110" y="86" font-family="monospace" font-size="6" fill="#2a4a2a" text-anchor="middle">TOOLS</text>
-              <rect x="260" y="120" width="80" height="50" rx="1" fill="#0a100a" stroke="#1e2e1e" stroke-width="0.5"/>
-              <ellipse cx="300" cy="130" rx="18" ry="6" fill="#0d150d" stroke="#1e2e1e" stroke-width="0.5"/>
-              <rect x="296" y="130" width="8" height="36" fill="#1a2a1a"/>
-              <text x="300" y="178" font-family="monospace" font-size="6" fill="#2a4a2a" text-anchor="middle">CLEANING CART</text>
-              <rect x="170" y="195" width="80" height="20" rx="0" fill="#0c140c" stroke="#1a2a1a" stroke-width="0.5"/>
-              <text x="210" y="207" font-family="monospace" font-size="6" fill="#2a4a2a" text-anchor="middle">WORK GLOVES</text>
-              <rect x="0" y="0" width="420" height="90" fill="url(#ceiling1)"/>
-              <defs>
-                <linearGradient id="ceiling1" x1="0" y1="0" x2="0" y2="90">
-                  <stop offset="0%" stop-color="#0d120d"/>
-                  <stop offset="100%" stop-color="#080d08"/>
-                </linearGradient>
-              </defs>
-              <rect x="158" y="10" width="104" height="4" rx="0" fill="#1a2a1a"/>
-              <rect x="200" y="14" width="20" height="70" fill="url(#lamp1)"/>
-              <defs>
-                <linearGradient id="lamp1" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stop-color="#2a4a2a" stop-opacity="0.6"/>
-                  <stop offset="100%" stop-color="#0a0a0a" stop-opacity="0"/>
-                </linearGradient>
-              </defs>
-              <text x="210" y="255" font-family="monospace" font-size="7" fill="#1e2e1e" text-anchor="middle" letter-spacing="2">— ONLY SPACE TO STAY —</text>
-            </svg>
-          </div>
-        </div>
-        <div class="alert-box" id="alert1">
-          <div style="color:#3a5a3a; margin-bottom:4px; font-size:8px; letter-spacing:0.15em;">SYSTEM NOTICE</div>
-          This is the only space you are permitted to rest.
-        </div>
-        <div class="explore-hint">CLICK TO PROCEED ▼</div>
-        <div class="action-row">
-          <button class="act-btn" onclick="showAlert('alert1')">INSPECT SPACE</button>
-          <button class="act-btn" onclick="nextStage()">BEGIN PATROL ›</button>
-        </div>
-        <div class="progress-bar" style="width:20%"></div>
-      </div>
+    <div class="scene-caption">— ONLY SPACE YOU MAY STAY —</div>
+
+    <div class="alert-box" id="a1">
+      <div class="alert-head">SYSTEM NOTICE</div>
+      This is the only space you are permitted to rest.<br>
+      <span class="dim">All other zones: transit only.</span>
     </div>
 
-    <!-- Screen 2: Corridor -->
-    <div class="screen" id="s2">
-      <div class="space-view">
-        <div class="space-name">ZONE 03 — CLASSROOM CORRIDOR / 教学楼走廊</div>
-        <div class="identity-tag">CLEANER MODE</div>
-        <div class="task-log">
-          <div>> Patrol started: 07:15</div>
-          <div>> Floors cleaned: 2</div>
-          <div>> Status: <span style="color:#8a6a2a">MOVING</span></div>
-        </div>
-        <div class="first-person-view">
-          <div class="room-frame">
-            <svg width="420" height="280" viewBox="0 0 420 280" fill="none">
-              <rect width="420" height="280" fill="#080d08"/>
-              <rect x="0" y="130" width="420" height="150" fill="#0c1008"/>
-              <line x1="0" y1="130" x2="420" y2="130" stroke="#1a2a14" stroke-width="0.5"/>
-              <rect x="20" y="50" width="380" height="80" fill="#060a06"/>
-              <line x1="0" y1="50" x2="420" y2="50" stroke="#1a2214" stroke-width="0.5"/>
-              <rect x="60" y="55" width="300" height="70" fill="#070b07"/>
-              <line x1="60" y1="55" x2="60" y2="125" stroke="#1a2214" stroke-width="0.5"/>
-              <line x1="360" y1="55" x2="360" y2="125" stroke="#1a2214" stroke-width="0.5"/>
-              <line x1="60" y1="125" x2="360" y2="125" stroke="#1a2214" stroke-width="0.5"/>
-              <rect x="140" y="60" width="140" height="60" rx="0" fill="#0a0e0a"/>
-              <line x1="210" y1="60" x2="210" y2="120" stroke="#1a2214" stroke-width="0.5"/>
-              <text x="210" y="48" font-family="monospace" font-size="7" fill="#2a4a24" text-anchor="middle" letter-spacing="1">CLASSROOM 301</text>
-              <rect x="340" y="140" width="60" height="120" rx="0" fill="#0d120a"/>
-              <line x1="340" y1="140" x2="340" y2="260" stroke="#1a2214" stroke-width="0.5"/>
-              <rect x="20" y="140" width="50" height="110" rx="0" fill="#0d120a"/>
-              <line x1="70" y1="140" x2="70" y2="250" stroke="#1a2214" stroke-width="0.5"/>
-              <line x1="0" y1="250" x2="420" y2="250" stroke="#1a2214" stroke-width="0.5"/>
-              <rect x="130" y="200" width="160" height="50" fill="#080d06"/>
-              <rect x="140" y="195" width="140" height="8" fill="#0d1208"/>
-              <text x="210" y="188" font-family="monospace" font-size="7" fill="#2a4028" text-anchor="middle">MOPPING NOW</text>
-              <line x1="205" y1="140" x2="205" y2="250" stroke="#1a2214" stroke-width="0.3" stroke-dasharray="4,8"/>
-              <line x1="215" y1="140" x2="215" y2="250" stroke="#1a2214" stroke-width="0.3" stroke-dasharray="4,8"/>
-              <text x="210" y="268" font-family="monospace" font-size="6" fill="#1a2a14" text-anchor="middle" letter-spacing="2">— PASSING THROUGH ONLY —</text>
-            </svg>
-          </div>
-        </div>
-        <div class="alert-box" id="alert2">
-          <div style="color:#5a6a2a; margin-bottom:4px; font-size:8px; letter-spacing:0.15em;">⚠ NEW TASK DETECTED</div>
-          Restroom B3 requires immediate attention.<br>
-          <span style="color:#3a4a24">Please continue patrol.</span>
-        </div>
-        <div class="action-row">
-          <button class="act-btn" onclick="tryRest()">ATTEMPT TO REST</button>
-          <button class="act-btn" onclick="nextStage()">CONTINUE PATROL ›</button>
-        </div>
-        <div class="progress-bar" style="width:45%"></div>
-      </div>
+    <div class="action-row">
+      <button class="act-btn" onclick="alert_show('a1')">INSPECT SPACE</button>
+      <button class="act-btn primary" onclick="go(2)">BEGIN PATROL ›</button>
+    </div>
+  </div>
+
+  <!-- ══ S2: CORRIDOR ══════════════════════════════════════ -->
+  <div class="screen" id="s2">
+    <div class="scene-bg corridor-bg"></div>
+    <div class="scene-overlay dark"></div>
+
+    <div class="zone-label">ZONE 03 — CLASSROOM CORRIDOR / 教学楼走廊</div>
+    <div class="id-badge">CLEANER MODE</div>
+
+    <div class="task-log">
+      <div class="log-line">&gt; Patrol started: 07:15</div>
+      <div class="log-line">&gt; Floors cleaned: 2</div>
+      <div class="log-line">&gt; Status: <span class="amber">MOVING</span></div>
     </div>
 
-    <!-- Screen 3: Compare -->
-    <div class="screen" id="s3">
-      <div class="compare-view">
-        <div class="mode-panel cleaner">
-          <div class="mode-badge c">Cleaner Mode — Your View</div>
-          <div class="mode-title" style="color:#8a9a80">Zone 03 / Corridor</div>
-          <ul class="mode-items" style="margin-top:12px">
+    <div class="scene-caption">— PASSING THROUGH ONLY —</div>
+
+    <div class="alert-box" id="a2">
+      <div class="alert-head warn">⚠ NEW TASK DETECTED</div>
+      Restroom B3 requires immediate attention.<br>
+      <span class="dim">Please continue patrol.</span>
+    </div>
+
+    <div class="alert-box" id="a2b">
+      <div class="alert-head red">✕ STAY REQUEST DENIED</div>
+      Current area does not support long-term stay.<br>
+      <span class="dim">Please continue patrol immediately.</span>
+    </div>
+
+    <div class="action-row">
+      <button class="act-btn" onclick="try_rest()">ATTEMPT TO REST</button>
+      <button class="act-btn primary" onclick="go(3)">CONTINUE PATROL ›</button>
+    </div>
+  </div>
+
+  <!-- ══ S3: COMPARE ═══════════════════════════════════════ -->
+  <div class="screen compare-screen" id="s3">
+    <div class="compare-wrap">
+
+      <div class="compare-panel left">
+        <div class="scene-bg utility-bg" style="filter:grayscale(1) brightness(0.35) contrast(1.4)"></div>
+        <div class="scene-overlay dark"></div>
+        <div class="panel-content">
+          <div class="panel-mode dim-mode">● CLEANER MODE</div>
+          <div class="panel-zone">Zone 03 / Corridor</div>
+          <ul class="panel-list dim-list">
             <li>Narrow service path only</li>
             <li>No seating permitted</li>
             <li>Movement required at all times</li>
             <li>Hidden from main sight lines</li>
-            <li>Tools must be visible</li>
             <li>No lingering, no staying</li>
           </ul>
-          <div style="margin-top:20px; padding-top:16px; border-top:0.5px solid #1a2a1a; font-size:8px; color:#2a3a2a; letter-spacing:0.08em; line-height:1.8">
-            > STAY_PERMIT: DENIED<br>
-            > DWELL_TIME_LIMIT: 0min<br>
-            > ACCESS_TYPE: TRANSIT_ONLY
+          <div class="panel-data">
+            &gt; STAY_PERMIT: <span class="red">DENIED</span><br>
+            &gt; DWELL_LIMIT: <span class="red">0 min</span><br>
+            &gt; ACCESS: TRANSIT_ONLY
           </div>
         </div>
-        <div class="mode-panel student">
-          <div class="mode-badge s">Student Mode — Theirs</div>
-          <div class="mode-title" style="color:#a0b890">Zone 03 / Corridor</div>
-          <ul class="mode-items bright" style="margin-top:12px">
+      </div>
+
+      <div class="compare-divider">
+        <div class="divider-pill">SAME SPACE</div>
+      </div>
+
+      <div class="compare-panel right">
+        <div class="scene-bg corridor-bg" style="filter:grayscale(0.2) brightness(0.7) contrast(1.1)"></div>
+        <div class="scene-overlay" style="background:rgba(0,0,0,0.3)"></div>
+        <div class="panel-content">
+          <div class="panel-mode bright-mode">● STUDENT MODE</div>
+          <div class="panel-zone bright">Zone 03 / Corridor</div>
+          <ul class="panel-list bright-list">
             <li>Full corridor access</li>
             <li>Seating areas available</li>
             <li>Free to stand, sit, gather</li>
             <li>Natural light, open layout</li>
-            <li>Study nooks permitted</li>
             <li>Presence unquestioned</li>
           </ul>
-          <div style="margin-top:20px; padding-top:16px; border-top:0.5px solid #1a3a1a; font-size:8px; color:#3a5a3a; letter-spacing:0.08em; line-height:1.8">
-            > STAY_PERMIT: FULL<br>
-            > DWELL_TIME_LIMIT: UNLIMITED<br>
-            > ACCESS_TYPE: RESIDENT
+          <div class="panel-data bright-data">
+            &gt; STAY_PERMIT: <span class="green">FULL</span><br>
+            &gt; DWELL_LIMIT: <span class="green">UNLIMITED</span><br>
+            &gt; ACCESS: RESIDENT
           </div>
         </div>
       </div>
-      <div class="divider-label">SAME SPACE</div>
-      <div class="hud-corner bl" style="z-index:20">IDENTITY_DETERMINES_ACCESS</div>
-      <div class="action-row" style="z-index:20">
-        <button class="act-btn" onclick="nextStage()">CONTINUE SHIFT ›</button>
-      </div>
-      <div class="progress-bar" style="width:65%"></div>
-    </div>
 
-    <!-- Screen 4: Stairwell -->
-    <div class="screen" id="s4">
-      <div class="space-view">
-        <div class="space-name">ZONE 07 — STAIRWELL CORNER / 楼梯角落</div>
-        <div class="identity-tag">CLEANER MODE</div>
-        <div class="task-log">
-          <div>> Time: 12:40</div>
-          <div>> Break request: <span style="color:#9a4a2a">INTERRUPTED</span></div>
-          <div>> Reason: PA system</div>
-        </div>
-        <div class="first-person-view">
-          <div class="room-frame">
-            <svg width="420" height="280" viewBox="0 0 420 280" fill="none">
-              <rect width="420" height="280" fill="#080b08"/>
-              <polygon points="0,280 420,280 420,140 300,140 300,200 120,200 120,140 0,140" fill="#0a0d0a"/>
-              <line x1="120" y1="140" x2="120" y2="200" stroke="#1a221a" stroke-width="0.5"/>
-              <line x1="120" y1="200" x2="300" y2="200" stroke="#1a221a" stroke-width="0.5"/>
-              <line x1="300" y1="200" x2="300" y2="140" stroke="#1a221a" stroke-width="0.5"/>
-              <line x1="0" y1="140" x2="420" y2="140" stroke="#1a221a" stroke-width="0.5"/>
-              <rect x="30" y="200" width="80" height="6" rx="0" fill="#0d120d"/>
-              <rect x="30" y="206" width="80" height="6" rx="0" fill="#0c110c"/>
-              <rect x="30" y="212" width="80" height="6" rx="0" fill="#0b100b"/>
-              <line x1="30" y1="200" x2="30" y2="280" stroke="#1a221a" stroke-width="0.5"/>
-              <rect x="320" y="180" width="70" height="80" rx="0" fill="#0a0f0a" stroke="#14201a" stroke-width="0.5"/>
-              <rect x="340" y="190" width="14" height="60" rx="0" fill="#1a2a1a"/>
-              <rect x="360" y="210" width="14" height="40" rx="0" fill="#1a2a1a"/>
-              <text x="355" y="178" font-family="monospace" font-size="6" fill="#2a3a2a" text-anchor="middle">CART</text>
-              <rect x="150" y="210" width="120" height="30" rx="0" fill="#09100a" stroke="#141e14" stroke-width="0.5"/>
-              <text x="210" y="200" font-family="monospace" font-size="7" fill="#2a3a2a" text-anchor="middle">SITTING ON FLOOR</text>
-              <text x="210" y="248" font-family="monospace" font-size="6" fill="#1a2a1a" text-anchor="middle" letter-spacing="1">12:40 — LUNCH BREAK</text>
-              <rect x="140" y="30" width="140" height="30" rx="0" fill="#0a100a" stroke="#1a2a1a" stroke-width="0.5"/>
-              <text x="210" y="50" font-family="monospace" font-size="7" fill="#4a6a3a" text-anchor="middle" letter-spacing="1">PA: ALL STAFF RESUME DUTIES</text>
-              <text x="210" y="268" font-family="monospace" font-size="6" fill="#1a2a14" text-anchor="middle" letter-spacing="2">— NO DESIGNATED REST SPACE —</text>
-            </svg>
-          </div>
-        </div>
-        <div class="alert-box show" id="alert4">
-          <div style="color:#6a5a2a; margin-bottom:4px; font-size:8px; letter-spacing:0.15em;">📢 PUBLIC ANNOUNCEMENT</div>
-          All cleaning staff: please resume patrol immediately.<br>
-          <span style="color:#4a3a1a">Lunch break has ended.</span>
-        </div>
-        <div class="action-row">
-          <button class="act-btn" onclick="nextStage()">END SHIFT ›</button>
-        </div>
-        <div class="progress-bar" style="width:85%"></div>
-      </div>
     </div>
-
-    <!-- Screen 5: Final -->
-    <div class="screen final-screen" id="s5">
-      <div class="sys-label" style="margin-bottom:16px">18:00 — SHIFT COMPLETE</div>
-      <div class="final-line">Today's cleaning task completed. Return to utility room.</div>
-      <div class="final-question">
-        WHO HAS THE<br>
-        <span>RIGHT TO STAY?</span>
-        <span class="pulse-dot"></span>
-      </div>
-      <div class="stats-block">
-        Spaces cleaned today: 12 zones<br>
-        Designated rest space: 0<br>
-        Times interrupted: 7<br>
-        Hours without a seat: 11.5
-      </div>
-      <div class="progress-bar" style="width:100%; background:#4a7a4a"></div>
+    <div class="action-row" style="position:absolute;bottom:16px;left:0;right:0;z-index:20">
+      <button class="act-btn primary" onclick="go(4)">CONTINUE SHIFT ›</button>
     </div>
   </div>
 
-  <script src="main.js"></script>
+  <!-- ══ S4: STAIRWELL ═════════════════════════════════════ -->
+  <div class="screen" id="s4">
+    <div class="scene-bg stair-bg"></div>
+    <div class="scene-overlay dark"></div>
+
+    <div class="zone-label">ZONE 07 — STAIRWELL CORNER / 楼梯角落</div>
+    <div class="id-badge">CLEANER MODE</div>
+
+    <div class="task-log">
+      <div class="log-line">&gt; Time: 12:40</div>
+      <div class="log-line">&gt; Break request: <span class="red">INTERRUPTED</span></div>
+      <div class="log-line">&gt; Reason: PA broadcast</div>
+    </div>
+
+    <!-- PA notification always visible -->
+    <div class="pa-box">
+      <div class="pa-icon">📢</div>
+      <div>
+        <div class="pa-title">ALL CLEANING STAFF</div>
+        <div class="pa-body">Please resume patrol immediately. Lunch break has ended.</div>
+        <div class="pa-time">12:41</div>
+      </div>
+    </div>
+
+    <div class="scene-caption">— NO DESIGNATED REST SPACE —</div>
+
+    <div class="action-row">
+      <button class="act-btn primary" onclick="go(5)">END SHIFT ›</button>
+    </div>
+  </div>
+
+  <!-- ══ S5: FINAL ══════════════════════════════════════════ -->
+  <div class="screen final-screen" id="s5">
+    <div class="scene-bg toilet-bg" style="filter:grayscale(1) brightness(0.25) contrast(1.6)"></div>
+    <div class="scene-overlay" style="background:rgba(0,0,0,0.72)"></div>
+    <div class="final-content">
+      <div class="final-time">18:00</div>
+      <div class="final-sub">TODAY'S CLEANING TASK COMPLETED</div>
+      <div class="final-q">WHO HAS THE<br><span class="green-text">RIGHT TO STAY?</span><span class="pulse"></span></div>
+      <div class="final-stats">
+        <div class="stat-row"><span class="stat-label">Zones cleaned today</span><span class="stat-val">12</span></div>
+        <div class="stat-row"><span class="stat-label">Designated rest space</span><span class="stat-val red">0</span></div>
+        <div class="stat-row"><span class="stat-label">Times interrupted</span><span class="stat-val">7</span></div>
+        <div class="stat-row"><span class="stat-label">Hours without a seat</span><span class="stat-val">11.5</span></div>
+      </div>
+      <button class="enter-btn" style="margin-top:28px" onclick="go(0)">↺ RESTART</button>
+    </div>
+  </div>
+
+</div>
+<script src="main.js"></script>
 </body>
 </html>
