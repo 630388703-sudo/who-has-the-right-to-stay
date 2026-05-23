@@ -8,6 +8,22 @@
 
 ---
 
+## SDG 关联
+
+**🎯 可持续发展目标 8 — 体面工作与经济增长**
+
+> Promote sustained, inclusive and sustainable economic growth, full and productive employment and **decent work** for all.
+
+本项目聚焦于 SDG 8 中常被忽视的议题：**劳动者的休息空间权利被系统性挤压与忽视**。
+
+校园保洁员每天工作超过 10 小时，却没有任何正式的休息空间——午休只能发生在楼梯角落、工具间或清洁车旁。这不只是个人困境，而是公共空间设计中长期存在的结构性不平等。
+
+本项目不讨论"保洁员很辛苦"，而是追问：
+
+**当我们设计一个空间时，我们在为谁设计？**
+
+---
+
 ## 体验流程
 
 | 阶段 | 时间 | 空间 |
@@ -26,12 +42,11 @@
 直接用浏览器打开 `index.html` 即可，无需任何构建工具或依赖。
 
 ```bash
-# 或者用 Python 起一个本地服务器
 python3 -m http.server 8080
 # 访问 http://localhost:8080
 ```
 
-快捷键：按 `→` 或 `空格` 推进场景。
+快捷键：`→` 或 `空格` 推进场景，`←` 返回上一场景。
 
 ---
 
@@ -39,30 +54,8 @@ python3 -m http.server 8080
 
 - 纯 HTML / CSS / JavaScript（无框架依赖）
 - IBM Plex Mono 字体（Google Fonts）
-- SVG 场景绘制
 
 ---
 
-## 项目背景
-
-本项目由数字媒体艺术专业学生创作，作为「Vibe Coding + 沉浸式数字展览」课程项目。
-
-核心议题：**公共空间是否真正对所有人平等开放？**
-
-视觉风格：Documentary + System UI，极简黑白 + 灰绿系统UI，营造监控感与后勤空间的压迫感。
-
----
-
-## 文件结构
-
-```
-who-has-the-right-to-stay/
-├── index.html   # 主页面
-├── style.css    # 样式
-├── main.js      # 交互逻辑
-└── README.md    # 项目说明
-```
-
----
-
-*昆明理工大学城市学院 · 数字媒体艺术 · 媒体2412班*
+*昆明理工大学城市学院 · 数字媒体艺术 · 媒体2412班*  
+*SDG Project — Goal 8: Decent Work and Economic Growth*
