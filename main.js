@@ -1,54 +1,62 @@
 (function () {
   'use strict';
 
-  const STAGES    = ['s0','s1','s2','s3','s4','s5'];
-  const PROGRESS  = [0, 20, 44, 64, 84, 100];
-  const LOCATIONS = ['CAMPUS_GATE','UTILITY_ROOM_B2','CORRIDOR_3F','ZONE_COMPARE','STAIRWELL_7','UTILITY_ROOM_B2'];
+  const TOTAL = 7;
+  const LOCS  = ['—','UTILITY_ROOM_B2','CAMPUS_MAIN','LABOR_PATH','STAIRWELL_7','DATA_CENTER','EXIT_18:00'];
+  let cur = 0;
 
-  const hudTL   = document.getElementById('hud-tl');
-  const hudBL   = document.getElementById('hud-bl');
-  const progEl  = document.getElementById('progress');
+  const hudStatus = document.getElementById('hud-status');
+  const hudLoc    = document.getElementById('hud-loc');
+  const dots      = document.querySelectorAll('.dot');
 
-  let stage = 0;
-
-  window.go = function (n) {
-    if (n < 0 || n >= STAGES.length) return;
-    STAGES.forEach((id, i) => {
-      const el = document.getElementById(id);
-      if (el) el.classList.toggle('active', i === n);
-    });
-    stage = n;
-    if (progEl) progEl.style.width = PROGRESS[n] + '%';
-    if (hudBL)  hudBL.textContent  = 'LOC: ' + LOCATIONS[n];
-    if (n === STAGES.length - 1 && document.getElementById('hud-br')) {
-      document.getElementById('hud-br').innerHTML = 'STAY_PERMIT: <span class="red">STILL NONE</span>';
-    }
+  window.goPage = function (n) {
+    if (n < 0 || n >= TOTAL) return;
+    document.getElementById('p' + cur).classList.remove('active');
+    document.getElementById('p' + n).classList.add('active');
+    dots[cur].classList.remove('active');
+    dots[n].classList.add('active');
+    cur = n;
+    if (hudLoc) hudLoc.textContent = 'LOC: ' + LOCS[n];
   };
 
-  window.alert_show = function (id) {
-    const el = document.getElementById(id);
-    if (!el) return;
-    el.classList.add('show');
-    setTimeout(() => el.classList.remove('show'), 3200);
+  // Page 5 alert logic
+  let alertCount = 0;
+  const msgs = [
+    'Current Area Does Not Support Long Stay',
+    'New Cleaning Task Detected — Please Continue Patrol',
+    'STAY REQUEST DENIED — Resume Duties Immediately',
+  ];
+  window.triggerAlert = function (type) {
+    const popup = document.getElementById('sys-popup');
+    const msgEl = document.getElementById('popup-msg');
+    if (!popup || !msgEl) return;
+    msgEl.textContent = msgs[alertCount % msgs.length];
+    alertCount++;
+    popup.style.animation = 'none';
+    popup.offsetHeight; // reflow
+    popup.style.animation = 'popIn 0.4s ease';
   };
 
-  window.try_rest = function () {
-    const el = document.getElementById('a2b');
-    if (!el) return;
-    el.classList.add('show');
-    setTimeout(() => el.classList.remove('show'), 3500);
+  // Identity card selection feedback
+  window.selectMode = function (mode) {
+    document.querySelectorAll('.id-card').forEach(c => c.style.opacity = '0.4');
+    const chosen = document.querySelector('.' + mode + '-card');
+    if (chosen) chosen.style.opacity = '1';
+    setTimeout(() => {
+      document.querySelectorAll('.id-card').forEach(c => c.style.opacity = '1');
+    }, 600);
   };
 
-  // HUD pulse
+  // HUD blink
   setInterval(() => {
-    if (hudTL) hudTL.textContent = hudTL.textContent === 'MONITORING...' ? 'SYSTEM ACTIVE' : 'MONITORING...';
+    if (hudStatus) hudStatus.textContent = hudStatus.textContent === 'SYSTEM ACTIVE' ? 'MONITORING...' : 'SYSTEM ACTIVE';
   }, 2000);
 
-  // Keyboard
+  // Keyboard nav
   document.addEventListener('keydown', e => {
-    if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); go(stage + 1); }
-    if (e.key === 'ArrowLeft') { e.preventDefault(); go(Math.max(0, stage - 1)); }
+    if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); goPage(cur + 1); }
+    if (e.key === 'ArrowLeft') { e.preventDefault(); goPage(Math.max(0, cur - 1)); }
   });
 
-  go(0);
+  goPage(0);
 })();

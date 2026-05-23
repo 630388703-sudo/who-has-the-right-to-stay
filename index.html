@@ -3,207 +3,468 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>WHO HAS THE RIGHT TO STAY? — 沉浸式数字展览</title>
+  <title>WHO HAS THE RIGHT TO STAY?</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <div id="app">
-
-  <!-- Overlays -->
   <div class="scanline"></div>
   <div class="vignette"></div>
 
   <!-- HUD -->
-  <div class="hud hud-tl" id="hud-tl">MONITORING...</div>
-  <div class="hud hud-tr">ID: CL-0047</div>
-  <div class="hud hud-bl" id="hud-bl">LOC: CAMPUS_MAIN</div>
-  <div class="hud hud-br" id="hud-br">STAY_PERMIT: <span class="red">NONE</span></div>
+  <div class="hud hud-tl" id="hud-status">SYSTEM ACTIVE</div>
+  <div class="hud hud-tr">SDG 8 — DECENT WORK</div>
+  <div class="hud hud-bl" id="hud-loc">LOC: —</div>
+  <div class="hud hud-br">STAY_PERMIT: <span class="red">NONE</span></div>
 
-  <!-- Progress -->
-  <div class="progress-track"><div class="progress-fill" id="progress"></div></div>
+  <!-- Nav dots -->
+  <div class="nav-dots" id="nav-dots">
+    <div class="dot active" onclick="goPage(0)"></div>
+    <div class="dot" onclick="goPage(1)"></div>
+    <div class="dot" onclick="goPage(2)"></div>
+    <div class="dot" onclick="goPage(3)"></div>
+    <div class="dot" onclick="goPage(4)"></div>
+    <div class="dot" onclick="goPage(5)"></div>
+    <div class="dot" onclick="goPage(6)"></div>
+  </div>
 
-  <!-- ══ S0: BOOT ══════════════════════════════════════════ -->
-  <div class="screen active" id="s0">
-    <div class="boot-bg"></div>
-    <div class="boot-content">
-      <div class="sdg-tag">SDG 8 — DECENT WORK &amp; ECONOMIC GROWTH</div>
-      <div class="sys-small">CAMPUS FACILITY MANAGEMENT SYSTEM v2.4</div>
+  <!-- ══════════════════════════════════════════════
+       PAGE 1 — SYSTEM BOOT
+  ══════════════════════════════════════════════════ -->
+  <div class="page active" id="p0">
+    <div class="boot-wrap">
+      <div class="sdg-pill">SDG 8 — DECENT WORK &amp; ECONOMIC GROWTH</div>
       <div class="boot-time">06:30</div>
-      <div class="boot-sub">— TODAY'S SHIFT BEGINS —</div>
-      <div class="blink-msg">PLEASE START TODAY'S CLEANING TASK</div>
-      <div class="glove-hint">🧤</div>
-      <button class="enter-btn" onclick="go(1)">ENTER SYSTEM ›</button>
+      <div class="boot-label">CAMPUS FACILITY MANAGEMENT SYSTEM</div>
+      <div class="boot-msg blink">PLEASE START TODAY'S CLEANING TASK</div>
+      <div class="boot-sub">— 请开始今日清洁任务 —</div>
+      <div class="boot-sounds">
+        <span class="sound-tag">📢 广播声</span>
+        <span class="sound-tag">⚡ 电流声</span>
+        <span class="sound-tag">📡 对讲机</span>
+      </div>
+      <button class="main-btn" onclick="goPage(1)">ENTER SYSTEM ›</button>
+      <div class="boot-question">WHO HAS THE RIGHT TO STAY?</div>
     </div>
   </div>
 
-  <!-- ══ S1: UTILITY ROOM ══════════════════════════════════ -->
-  <div class="screen" id="s1">
-    <div class="scene-bg utility-bg"></div>
-    <div class="scene-overlay"></div>
+  <!-- ══════════════════════════════════════════════
+       PAGE 2 — IDENTITY CHOICE
+  ══════════════════════════════════════════════════ -->
+  <div class="page" id="p1">
+    <div class="identity-wrap">
+      <div class="page-eyebrow">PAGE 02 — IDENTITY / 身份选择</div>
+      <div class="identity-q">CHOOSE YOUR IDENTITY</div>
+      <div class="identity-sub">同一校园，不同身份拥有不同空间权限</div>
 
-    <div class="zone-label">ZONE 00 — UTILITY ROOM / 后勤工具间</div>
-    <div class="id-badge">CLEANER MODE</div>
-
-    <div class="task-log">
-      <div class="log-line">&gt; Task assigned: 06:30</div>
-      <div class="log-line">&gt; Location: Utility Room B2</div>
-      <div class="log-line">&gt; Status: <span class="green">STANDBY</span></div>
-    </div>
-
-    <div class="scene-caption">— ONLY SPACE YOU MAY STAY —</div>
-
-    <div class="alert-box" id="a1">
-      <div class="alert-head">SYSTEM NOTICE</div>
-      This is the only space you are permitted to rest.<br>
-      <span class="dim">All other zones: transit only.</span>
-    </div>
-
-    <div class="action-row">
-      <button class="act-btn" onclick="alert_show('a1')">INSPECT SPACE</button>
-      <button class="act-btn primary" onclick="go(2)">BEGIN PATROL ›</button>
-    </div>
-  </div>
-
-  <!-- ══ S2: CORRIDOR ══════════════════════════════════════ -->
-  <div class="screen" id="s2">
-    <div class="scene-bg corridor-bg"></div>
-    <div class="scene-overlay dark"></div>
-
-    <div class="zone-label">ZONE 03 — CLASSROOM CORRIDOR / 教学楼走廊</div>
-    <div class="id-badge">CLEANER MODE</div>
-
-    <div class="task-log">
-      <div class="log-line">&gt; Patrol started: 07:15</div>
-      <div class="log-line">&gt; Floors cleaned: 2</div>
-      <div class="log-line">&gt; Status: <span class="amber">MOVING</span></div>
-    </div>
-
-    <div class="scene-caption">— PASSING THROUGH ONLY —</div>
-
-    <div class="alert-box" id="a2">
-      <div class="alert-head warn">⚠ NEW TASK DETECTED</div>
-      Restroom B3 requires immediate attention.<br>
-      <span class="dim">Please continue patrol.</span>
-    </div>
-
-    <div class="alert-box" id="a2b">
-      <div class="alert-head red">✕ STAY REQUEST DENIED</div>
-      Current area does not support long-term stay.<br>
-      <span class="dim">Please continue patrol immediately.</span>
-    </div>
-
-    <div class="action-row">
-      <button class="act-btn" onclick="try_rest()">ATTEMPT TO REST</button>
-      <button class="act-btn primary" onclick="go(3)">CONTINUE PATROL ›</button>
-    </div>
-  </div>
-
-  <!-- ══ S3: COMPARE ═══════════════════════════════════════ -->
-  <div class="screen compare-screen" id="s3">
-    <div class="compare-wrap">
-
-      <div class="compare-panel left">
-        <div class="scene-bg utility-bg" style="filter:grayscale(1) brightness(0.35) contrast(1.4)"></div>
-        <div class="scene-overlay dark"></div>
-        <div class="panel-content">
-          <div class="panel-mode dim-mode">● CLEANER MODE</div>
-          <div class="panel-zone">Zone 03 / Corridor</div>
-          <ul class="panel-list dim-list">
-            <li>Narrow service path only</li>
-            <li>No seating permitted</li>
-            <li>Movement required at all times</li>
-            <li>Hidden from main sight lines</li>
-            <li>No lingering, no staying</li>
+      <div class="identity-grid">
+        <div class="id-card student-card" onclick="selectMode('student')">
+          <div class="id-mode-label">STUDENT MODE</div>
+          <div class="id-icon">🎒</div>
+          <ul class="id-attrs">
+            <li class="bright-li">明亮 · 开放</li>
+            <li class="bright-li">可长时间停留</li>
+            <li class="bright-li">有正式座椅</li>
+            <li class="bright-li">存在不被质疑</li>
           </ul>
-          <div class="panel-data">
-            &gt; STAY_PERMIT: <span class="red">DENIED</span><br>
-            &gt; DWELL_LIMIT: <span class="red">0 min</span><br>
-            &gt; ACCESS: TRANSIT_ONLY
+          <div class="id-permit bright-permit">STAY_PERMIT: FULL</div>
+          <div class="id-select-hint">点击进入 →</div>
+        </div>
+
+        <div class="id-vs">VS</div>
+
+        <div class="id-card cleaner-card" onclick="selectMode('cleaner')">
+          <div class="id-mode-label dim-label">CLEANER MODE</div>
+          <div class="id-icon dim-icon">🧤</div>
+          <ul class="id-attrs">
+            <li class="dim-li">狭窄 · 功能化</li>
+            <li class="dim-li">持续移动，无法停留</li>
+            <li class="dim-li">无专属休息空间</li>
+            <li class="dim-li">存在被系统限制</li>
+          </ul>
+          <div class="id-permit red-permit">STAY_PERMIT: NONE</div>
+          <div class="id-select-hint dim-hint">点击进入 →</div>
+        </div>
+      </div>
+
+      <div class="id-note">本展览以 CLEANER MODE 运行</div>
+      <button class="main-btn" onclick="goPage(2)">CONTINUE ›</button>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════
+       PAGE 3 — SPACE MAP
+  ══════════════════════════════════════════════════ -->
+  <div class="page" id="p2">
+    <div class="map-wrap">
+      <div class="page-eyebrow">PAGE 03 — SPACE MAP / 空间地图</div>
+      <div class="map-title">CAMPUS SPACE ALLOCATION</div>
+      <div class="map-sub">同一校园，空间归属完全不同</div>
+
+      <div class="map-grid">
+        <div class="map-col">
+          <div class="map-col-head bright-head">
+            <span class="col-dot bright-dot"></span>
+            STUDENT SPACE
+          </div>
+          <div class="map-item bright-item">
+            <div class="item-icon">🏫</div>
+            <div>
+              <div class="item-name">教室 / Classroom</div>
+              <div class="item-tag bright-tag">正式停留 · 无限时长</div>
+            </div>
+          </div>
+          <div class="map-item bright-item">
+            <div class="item-icon">📚</div>
+            <div>
+              <div class="item-name">自习室 / Study Room</div>
+              <div class="item-tag bright-tag">正式停留 · 无限时长</div>
+            </div>
+          </div>
+          <div class="map-item bright-item">
+            <div class="item-icon">🍜</div>
+            <div>
+              <div class="item-name">食堂 / Canteen</div>
+              <div class="item-tag bright-tag">正式停留 · 有座椅</div>
+            </div>
+          </div>
+          <div class="map-item bright-item">
+            <div class="item-icon">🛋</div>
+            <div>
+              <div class="item-name">公共休息区 / Lounge</div>
+              <div class="item-tag bright-tag">正式停留 · 有座椅</div>
+            </div>
+          </div>
+          <div class="map-total bright-total">FORMAL STAY SPACE</div>
+        </div>
+
+        <div class="map-arrow">
+          <div class="arrow-line"></div>
+          <div class="arrow-label">SAME<br>CAMPUS</div>
+          <div class="arrow-line"></div>
+        </div>
+
+        <div class="map-col">
+          <div class="map-col-head dim-head">
+            <span class="col-dot dim-dot"></span>
+            CLEANER SPACE
+          </div>
+          <div class="map-item dim-item">
+            <div class="item-icon">🔧</div>
+            <div>
+              <div class="item-name">工具间 / Utility Room</div>
+              <div class="item-tag dim-tag">临时停留 · 唯一可休息处</div>
+            </div>
+          </div>
+          <div class="map-item dim-item">
+            <div class="item-icon">🪜</div>
+            <div>
+              <div class="item-name">楼梯口 / Stairwell</div>
+              <div class="item-tag dim-tag">非正式 · 常被打断</div>
+            </div>
+          </div>
+          <div class="map-item dim-item">
+            <div class="item-icon">🚪</div>
+            <div>
+              <div class="item-name">后勤通道 / Service Corridor</div>
+              <div class="item-tag dim-tag">过道 · 不可久留</div>
+            </div>
+          </div>
+          <div class="map-item dim-item">
+            <div class="item-icon">🧹</div>
+            <div>
+              <div class="item-name">清洁车旁 / By Cart</div>
+              <div class="item-tag dim-tag">非正式 · 随时中断</div>
+            </div>
+          </div>
+          <div class="map-total dim-total">TEMPORARY STAY ONLY</div>
+        </div>
+      </div>
+
+      <button class="main-btn" onclick="goPage(3)">NEXT ›</button>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════
+       PAGE 4 — LABOR PATH
+  ══════════════════════════════════════════════════ -->
+  <div class="page" id="p3">
+    <div class="path-wrap">
+      <div class="page-eyebrow">PAGE 04 — LABOR PATH / 劳动路径</div>
+      <div class="path-title">A DAY IN CLEANER MODE</div>
+      <div class="path-sub">保洁员一天的工作路线</div>
+
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-time">06:30</div>
+          <div class="tl-dot active-dot"></div>
+          <div class="tl-content">
+            <div class="tl-name">工具间 / Utility Room</div>
+            <div class="tl-desc permit-ok">✓ 唯一可停留空间 — 领取工具，开始一天</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-time">07:00</div>
+          <div class="tl-dot move-dot"></div>
+          <div class="tl-content">
+            <div class="tl-name">教学楼走廊 / Corridor</div>
+            <div class="tl-desc permit-no">✗ 过道空间 — 扫地、拖地、换垃圾袋</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-time">08:30</div>
+          <div class="tl-dot move-dot"></div>
+          <div class="tl-content">
+            <div class="tl-name">卫生间 / Restroom</div>
+            <div class="tl-desc permit-no">✗ 功能空间 — 清洁、消毒、补充耗材</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-time">10:15</div>
+          <div class="tl-dot move-dot"></div>
+          <div class="tl-content">
+            <div class="tl-name">垃圾收集点 / Waste Point</div>
+            <div class="tl-desc permit-no">✗ 后勤区域 — 分类处理，清运垃圾</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-time">12:40</div>
+          <div class="tl-dot rest-dot"></div>
+          <div class="tl-content">
+            <div class="tl-name">楼梯角落 / Stairwell Corner</div>
+            <div class="tl-desc permit-interrupt">⚡ 尝试休息 — 广播打断，任务继续</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-time">14:00</div>
+          <div class="tl-dot move-dot"></div>
+          <div class="tl-content">
+            <div class="tl-name">继续巡查 / Continue Patrol</div>
+            <div class="tl-desc permit-no">✗ 全区域 — 系统持续派发任务</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-time">18:00</div>
+          <div class="tl-dot end-dot"></div>
+          <div class="tl-content">
+            <div class="tl-name">返回工具间 / Return</div>
+            <div class="tl-desc permit-end">— 今日任务完成，归还工具</div>
           </div>
         </div>
       </div>
 
-      <div class="compare-divider">
-        <div class="divider-pill">SAME SPACE</div>
+      <div class="path-stats">
+        <div class="ps-item"><span class="ps-num">11.5h</span><span class="ps-lab">工作时长</span></div>
+        <div class="ps-item"><span class="ps-num red">0</span><span class="ps-lab">正式休息空间</span></div>
+        <div class="ps-item"><span class="ps-num">7次</span><span class="ps-lab">休息被打断</span></div>
+        <div class="ps-item"><span class="ps-num">12+</span><span class="ps-lab">清洁区域</span></div>
       </div>
 
-      <div class="compare-panel right">
-        <div class="scene-bg corridor-bg" style="filter:grayscale(0.2) brightness(0.7) contrast(1.1)"></div>
-        <div class="scene-overlay" style="background:rgba(0,0,0,0.3)"></div>
-        <div class="panel-content">
-          <div class="panel-mode bright-mode">● STUDENT MODE</div>
-          <div class="panel-zone bright">Zone 03 / Corridor</div>
-          <ul class="panel-list bright-list">
-            <li>Full corridor access</li>
-            <li>Seating areas available</li>
-            <li>Free to stand, sit, gather</li>
-            <li>Natural light, open layout</li>
-            <li>Presence unquestioned</li>
-          </ul>
-          <div class="panel-data bright-data">
-            &gt; STAY_PERMIT: <span class="green">FULL</span><br>
-            &gt; DWELL_LIMIT: <span class="green">UNLIMITED</span><br>
-            &gt; ACCESS: RESIDENT
+      <button class="main-btn" onclick="goPage(4)">NEXT ›</button>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════
+       PAGE 5 — STAY RESTRICTION (core mechanic)
+  ══════════════════════════════════════════════════ -->
+  <div class="page" id="p4">
+    <div class="restrict-wrap">
+      <div class="page-eyebrow">PAGE 05 — STAY RESTRICTION / 停留限制</div>
+
+      <div class="restrict-scene">
+        <div class="scene-label">ZONE 07 — STAIRWELL / 楼梯口</div>
+        <div class="scene-body">
+          <div class="pov-frame">
+            <div class="pov-inner">
+              <div class="stair-visual">
+                <div class="sv-wall sv-wall-l"></div>
+                <div class="sv-wall sv-wall-r"></div>
+                <div class="sv-floor"></div>
+                <div class="sv-steps">
+                  <div class="sv-step" style="bottom:0;width:100%"></div>
+                  <div class="sv-step" style="bottom:18px;width:82%"></div>
+                  <div class="sv-step" style="bottom:36px;width:64%"></div>
+                  <div class="sv-step" style="bottom:54px;width:46%"></div>
+                </div>
+                <div class="sv-cart">🧹</div>
+                <div class="sv-exit">EXIT ↑</div>
+              </div>
+            </div>
           </div>
+
+          <!-- Notification stack -->
+          <div class="notif-stack" id="notif-stack">
+            <div class="notif-card" id="n1">
+              <div class="notif-head warn-head">
+                <span class="notif-dot warn-dot"></span>
+                新任务 NEW TASK
+                <span class="notif-time">10:15</span>
+              </div>
+              <div class="notif-body">2楼女厕需要清洁</div>
+            </div>
+            <div class="notif-card mt8" id="n2">
+              <div class="notif-head alert-head-r">
+                <span class="notif-dot red-dot"></span>
+                提醒 REMINDER
+                <span class="notif-time">10:16</span>
+              </div>
+              <div class="notif-body">请继续工作，保持区域整洁</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- System popup -->
+        <div class="sys-popup" id="sys-popup">
+          <div class="popup-bar"></div>
+          <div class="popup-code">SYSTEM ALERT</div>
+          <div class="popup-msg" id="popup-msg">Current Area Does Not Support Long Stay</div>
+          <div class="popup-sub">Please Continue Patrol Immediately</div>
         </div>
       </div>
 
-    </div>
-    <div class="action-row" style="position:absolute;bottom:16px;left:0;right:0;z-index:20">
-      <button class="act-btn primary" onclick="go(4)">CONTINUE SHIFT ›</button>
+      <div class="restrict-btns">
+        <button class="act-btn" onclick="triggerAlert(1)">尝试在此休息</button>
+        <button class="act-btn" onclick="triggerAlert(2)">再次尝试停留</button>
+        <button class="main-btn" onclick="goPage(5)">CONTINUE ›</button>
+      </div>
     </div>
   </div>
 
-  <!-- ══ S4: STAIRWELL ═════════════════════════════════════ -->
-  <div class="screen" id="s4">
-    <div class="scene-bg stair-bg"></div>
-    <div class="scene-overlay dark"></div>
+  <!-- ══════════════════════════════════════════════
+       PAGE 6 — DATA VISUALIZATION
+  ══════════════════════════════════════════════════ -->
+  <div class="page" id="p5">
+    <div class="data-wrap">
+      <div class="page-eyebrow">PAGE 06 — DATA / 数据可视化</div>
+      <div class="data-title">SPACE & LABOR DATA</div>
+      <div class="data-sub">校园空间分配与劳动数据</div>
 
-    <div class="zone-label">ZONE 07 — STAIRWELL CORNER / 楼梯角落</div>
-    <div class="id-badge">CLEANER MODE</div>
+      <div class="data-grid">
+        <!-- Bar chart: space allocation -->
+        <div class="data-card">
+          <div class="dc-label">空间分配对比 / Space Allocation</div>
+          <div class="bar-chart">
+            <div class="bar-row">
+              <div class="bar-name bright-txt">学生专属空间</div>
+              <div class="bar-track">
+                <div class="bar-fill bright-bar" style="width:78%">
+                  <span class="bar-val">78%</span>
+                </div>
+              </div>
+            </div>
+            <div class="bar-row">
+              <div class="bar-name dim-txt">共用空间</div>
+              <div class="bar-track">
+                <div class="bar-fill shared-bar" style="width:18%">
+                  <span class="bar-val">18%</span>
+                </div>
+              </div>
+            </div>
+            <div class="bar-row">
+              <div class="bar-name red-txt">保洁员专属</div>
+              <div class="bar-track">
+                <div class="bar-fill dim-bar" style="width:4%">
+                  <span class="bar-val">4%</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
 
-    <div class="task-log">
-      <div class="log-line">&gt; Time: 12:40</div>
-      <div class="log-line">&gt; Break request: <span class="red">INTERRUPTED</span></div>
-      <div class="log-line">&gt; Reason: PA broadcast</div>
-    </div>
+        <!-- Work metrics -->
+        <div class="data-card">
+          <div class="dc-label">劳动强度 / Work Intensity</div>
+          <div class="metrics-grid">
+            <div class="metric-box">
+              <div class="metric-num bright-txt">11.5h</div>
+              <div class="metric-lab">日均工作时长</div>
+            </div>
+            <div class="metric-box">
+              <div class="metric-num bright-txt">18,000+</div>
+              <div class="metric-lab">日均步数</div>
+            </div>
+            <div class="metric-box">
+              <div class="metric-num red">0</div>
+              <div class="metric-lab">正式休息室</div>
+            </div>
+            <div class="metric-box">
+              <div class="metric-num red">0</div>
+              <div class="metric-lab">专属休息座椅</div>
+            </div>
+          </div>
+        </div>
 
-    <!-- PA notification always visible -->
-    <div class="pa-box">
-      <div class="pa-icon">📢</div>
-      <div>
-        <div class="pa-title">ALL CLEANING STAFF</div>
-        <div class="pa-body">Please resume patrol immediately. Lunch break has ended.</div>
-        <div class="pa-time">12:41</div>
+        <!-- Interruption timeline -->
+        <div class="data-card wide-card">
+          <div class="dc-label">休息中断记录 / Rest Interruptions Today</div>
+          <div class="interrupt-track">
+            <div class="it-label">06:00</div>
+            <div class="it-bar">
+              <div class="it-rest" style="left:8.3%;width:1%" title="短暂停留 06:30"></div>
+              <div class="it-interrupt" style="left:12%;width:1.5%" title="打断 07:10"></div>
+              <div class="it-interrupt" style="left:28%;width:1.5%" title="打断 09:00"></div>
+              <div class="it-interrupt" style="left:44%;width:1.5%" title="打断 10:40"></div>
+              <div class="it-rest" style="left:52%;width:2%" title="尝试休息 11:30"></div>
+              <div class="it-interrupt" style="left:54%;width:1.5%" title="打断 11:45"></div>
+              <div class="it-rest" style="left:64%;width:3%" title="楼梯角落 12:40"></div>
+              <div class="it-interrupt" style="left:67%;width:1.5%" title="打断 13:00"></div>
+              <div class="it-interrupt" style="left:80%;width:1.5%" title="打断 15:00"></div>
+            </div>
+            <div class="it-label">18:00</div>
+          </div>
+          <div class="it-legend">
+            <span class="leg-item"><span class="leg-dot rest-leg"></span>尝试休息</span>
+            <span class="leg-item"><span class="leg-dot int-leg"></span>被系统打断</span>
+          </div>
+        </div>
+
       </div>
-    </div>
 
-    <div class="scene-caption">— NO DESIGNATED REST SPACE —</div>
-
-    <div class="action-row">
-      <button class="act-btn primary" onclick="go(5)">END SHIFT ›</button>
+      <button class="main-btn" onclick="goPage(6)">ENTER EXPERIENCE ›</button>
     </div>
   </div>
 
-  <!-- ══ S5: FINAL ══════════════════════════════════════════ -->
-  <div class="screen final-screen" id="s5">
-    <div class="scene-bg toilet-bg" style="filter:grayscale(1) brightness(0.25) contrast(1.6)"></div>
-    <div class="scene-overlay" style="background:rgba(0,0,0,0.72)"></div>
-    <div class="final-content">
-      <div class="final-time">18:00</div>
-      <div class="final-sub">TODAY'S CLEANING TASK COMPLETED</div>
-      <div class="final-q">WHO HAS THE<br><span class="green-text">RIGHT TO STAY?</span><span class="pulse"></span></div>
-      <div class="final-stats">
-        <div class="stat-row"><span class="stat-label">Zones cleaned today</span><span class="stat-val">12</span></div>
-        <div class="stat-row"><span class="stat-label">Designated rest space</span><span class="stat-val red">0</span></div>
-        <div class="stat-row"><span class="stat-label">Times interrupted</span><span class="stat-val">7</span></div>
-        <div class="stat-row"><span class="stat-label">Hours without a seat</span><span class="stat-val">11.5</span></div>
-        <div class="stat-row"><span class="stat-label">Designated break room</span><span class="stat-val red">NONE</span></div>
+  <!-- ══════════════════════════════════════════════
+       PAGE 7 — ENTER VR / FINAL
+  ══════════════════════════════════════════════════ -->
+  <div class="page" id="p6">
+    <div class="final-wrap">
+      <div class="final-time-label">18:00</div>
+      <div class="final-complete">TODAY'S CLEANING TASK COMPLETED</div>
+
+      <div class="final-q">
+        WHO HAS THE<br>
+        <span class="green-text">RIGHT TO STAY?</span>
+        <span class="pulse"></span>
       </div>
-      <div class="sdg-closing">SDG 8 — Every worker deserves<br>a place to rest.</div>
-      <button class="enter-btn" style="margin-top:20px" onclick="go(0)">↺ RESTART</button>
+
+      <div class="final-statement">
+        劳动者虽然长期存在于公共空间中，<br>
+        却缺少真正属于自己的停留空间。
+      </div>
+
+      <div class="final-stats-row">
+        <div class="fs-item"><div class="fs-num">12</div><div class="fs-lab">Zones cleaned</div></div>
+        <div class="fs-div"></div>
+        <div class="fs-item"><div class="fs-num red">0</div><div class="fs-lab">Rest spaces</div></div>
+        <div class="fs-div"></div>
+        <div class="fs-item"><div class="fs-num">7</div><div class="fs-lab">Interrupted</div></div>
+        <div class="fs-div"></div>
+        <div class="fs-item"><div class="fs-num">11.5h</div><div class="fs-lab">No seat</div></div>
+      </div>
+
+      <div class="vr-entry">
+        <div class="vr-label">NEXT STEP</div>
+        <div class="vr-title">ENTER VR EXPERIENCE</div>
+        <div class="vr-sub">佩戴VR头显，以第一视角进入保洁员的一天</div>
+        <div class="vr-badge">🥽 VR READY</div>
+      </div>
+
+      <div class="sdg-footer">SDG 8 — Every worker deserves a place to rest.</div>
+
+      <button class="main-btn" onclick="goPage(0)">↺ RESTART EXHIBITION</button>
     </div>
   </div>
 
