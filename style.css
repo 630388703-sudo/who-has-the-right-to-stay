@@ -323,3 +323,34 @@ html, body {
   .scene-body { flex-direction:column; }
   .notif-stack { flex:none; width:100%; }
 }
+
+/* ── Photo page overlays ── */
+#p2, #p3, #p4, #p5 {
+  position: relative;
+}
+#p2::before, #p3::before, #p4::before, #p5::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.72);
+  z-index: 1;
+  pointer-events: none;
+}
+#p2 > *, #p3 > *, #p4 > *, #p5 > * {
+  position: relative;
+  z-index: 2;
+}
+
+/* id-card photo overlays */
+.student-card::before, .cleaner-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+.student-card::before { background: rgba(0,0,0,0.45); }
+.cleaner-card::before { background: rgba(0,0,0,0.72); }
+.student-card > *, .cleaner-card > * { position: relative; z-index: 1; }
+
+/* pov-frame photo */
+.pov-frame { border: 0.5px solid #2a4a20; }
