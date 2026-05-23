@@ -213,7 +213,6 @@
         setTimeout(() => {
           document.getElementById('p-load').classList.remove('active');
           document.getElementById('p0').classList.add('active');
-          startBGM();
         }, 500);
         return;
       }
