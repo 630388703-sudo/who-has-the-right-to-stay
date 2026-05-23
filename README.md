@@ -57,5 +57,5 @@ python3 -m http.server 8080
 
 ---
 
-*昆明理工大学城市学院 · 数字媒体艺术 · 媒体2412班*  
+
 *SDG Project — Goal 8: Decent Work and Economic Growth*
