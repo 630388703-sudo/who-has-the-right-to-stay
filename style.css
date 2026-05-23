@@ -242,3 +242,153 @@ html,body{width:100%;height:100%;overflow:hidden;background:#080e08;font-family:
   .final-stats-row{flex-wrap:wrap}
   .notif-overlay{width:160px}
 }
+
+/* ══════════════════════════════════════════
+   IDENTITY PAGE — 35/65 SPLIT
+══════════════════════════════════════════ */
+
+#p1 { display:block; overflow:hidden; position:relative; }
+
+.warn-overlay {
+  position:absolute; inset:0; z-index:300;
+  background:rgba(100,20,10,0.85);
+  display:flex; align-items:center; justify-content:center;
+  opacity:0; pointer-events:none;
+  transition:opacity 0.15s ease;
+}
+.warn-overlay.show { opacity:1; animation:warnFlash 0.4s ease; }
+@keyframes warnFlash {
+  0%{opacity:0} 20%{opacity:1} 50%{opacity:0.6} 70%{opacity:1} 100%{opacity:1}
+}
+.warn-text {
+  font-size:clamp(20px,3vw,32px); letter-spacing:0.2em;
+  color:#ff6040; text-align:center; line-height:1.6;
+  font-weight:300;
+}
+
+.access-header {
+  position:absolute; top:0; left:0; right:0; z-index:20;
+  text-align:center; padding:18px 20px 0;
+  background:linear-gradient(to bottom, rgba(6,12,4,0.95) 60%, transparent);
+}
+.access-eyebrow { font-size:8px; letter-spacing:0.25em; color:#5a8044; margin-bottom:6px; }
+.access-title   { font-size:clamp(14px,2.2vw,20px); color:#c0d8a0; letter-spacing:0.12em; }
+.access-sub     { font-size:9px; color:#6a9a50; margin-top:4px; letter-spacing:0.08em; }
+
+.split-grid {
+  position:absolute; inset:64px 0 32px 0;
+  display:flex;
+}
+
+/* ── Student 35% ── */
+.split-student {
+  flex:0 0 35%; position:relative; overflow:hidden; cursor:pointer;
+  transition:flex 0.4s ease;
+}
+.split-student:hover { flex:0 0 38%; }
+.split-student-bg {
+  background-image:url('./img/corridor-bright.png');
+  background-size:cover; background-position:center;
+  filter:brightness(0.6) saturate(0.7);
+}
+.student-overlay { background:rgba(0,0,0,0.45); }
+
+/* ── Cleaner 65% ── */
+.split-cleaner {
+  flex:1; position:relative; overflow:hidden; cursor:pointer;
+  border-left:1px solid #3a1a0a;
+}
+.split-cleaner-bg {
+  background-image:url('./img/corridor-dark.png');
+  background-size:cover; background-position:center;
+  filter:brightness(0.45) contrast(1.3) saturate(0.2);
+}
+.cleaner-overlay { background:rgba(0,0,0,0.55); }
+
+.cleaner-noise {
+  position:absolute; inset:0; z-index:2; pointer-events:none; opacity:0.06;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.cleaner-scanline {
+  position:absolute; inset:0; z-index:2; pointer-events:none;
+  background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.15) 2px,rgba(0,0,0,0.15) 3px);
+}
+
+/* monitoring corners */
+.mon-tl,.mon-tr,.mon-bl {
+  position:absolute; z-index:10;
+  font-size:8px; letter-spacing:0.14em; color:#4a7a38;
+}
+.mon-tl { top:10px; left:12px; }
+.mon-tr { top:10px; right:12px; text-align:right; }
+.mon-bl { bottom:10px; left:12px; }
+
+/* glitch lines */
+.glitch-line {
+  position:absolute; left:0; right:0; height:1px; z-index:5; pointer-events:none;
+  background:rgba(80,200,60,0.15);
+  animation:glitch 3s ease infinite;
+}
+@keyframes glitch {
+  0%,90%,100%{opacity:0;transform:scaleX(1)}
+  92%{opacity:1;transform:scaleX(0.95) translateX(3px)}
+  94%{opacity:0.5;transform:scaleX(1.02) translateX(-2px)}
+  96%{opacity:1;transform:scaleX(0.98)}
+  98%{opacity:0}
+}
+
+/* shared split content */
+.split-bg { position:absolute; inset:0; }
+.split-overlay { position:absolute; inset:0; }
+.split-content {
+  position:relative; z-index:10;
+  display:flex; flex-direction:column;
+  justify-content:center; align-items:flex-start;
+  height:100%; padding:24px 20px;
+  gap:8px;
+}
+.cleaner-content { padding:40px 24px 24px; }
+
+.split-permit {
+  font-size:8px; letter-spacing:0.16em; padding:3px 10px;
+  border:0.5px solid; display:inline-block; margin-bottom:4px;
+}
+.bright-permit-tag { color:#78c050; border-color:#3a6028; background:rgba(20,60,10,0.5); }
+.red-permit-tag    { color:#e05030; border-color:#6a2a18; background:rgba(40,10,6,0.6); }
+
+.split-mode {
+  font-size:clamp(12px,1.8vw,16px); letter-spacing:0.18em;
+  color:#90c070; margin-bottom:6px;
+}
+.cleaner-mode { color:#c04030; font-size:clamp(14px,2.2vw,20px); }
+
+.split-attrs { list-style:none; }
+.split-attrs li {
+  font-size:9px; padding:3px 0;
+  display:flex; align-items:center; gap:6px;
+}
+.split-attrs li::before { content:'—'; }
+
+.split-btn {
+  margin-top:16px; background:none;
+  font-family:'IBM Plex Mono',monospace;
+  font-size:9px; letter-spacing:0.18em;
+  padding:8px 18px; cursor:pointer; transition:all 0.2s;
+  text-transform:uppercase;
+}
+.student-btn {
+  border:0.5px solid #4a7a30; color:#78aa50;
+}
+.student-btn:hover { background:rgba(30,60,16,0.5); color:#a0cc70; }
+.cleaner-btn {
+  border:0.5px solid #8a3020; color:#c05030;
+  font-size:10px; letter-spacing:0.2em; padding:10px 22px;
+}
+.cleaner-btn:hover { background:rgba(60,15,8,0.6); color:#e06040; border-color:#b04030; }
+
+.access-footer {
+  position:absolute; bottom:0; left:0; right:0; z-index:20;
+  text-align:center; padding:8px;
+  background:linear-gradient(to top, rgba(6,12,4,0.95) 60%, transparent);
+  font-size:7px; letter-spacing:0.18em; color:#3a5a28;
+}

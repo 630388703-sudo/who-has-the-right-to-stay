@@ -220,6 +220,17 @@
     if (e.key === 'ArrowLeft')  { e.preventDefault(); goPage(Math.max(0, cur - 1)); }
   });
 
+
+  // ── Warning overlay on cleaner hover ──────────────────
+  window.showWarning = function () {
+    const el = document.getElementById('warn-overlay');
+    if (el) el.classList.add('show');
+  };
+  window.hideWarning = function () {
+    const el = document.getElementById('warn-overlay');
+    if (el) el.classList.remove('show');
+  };
+
   // ── Init ───────────────────────────────────────────────
   runLoader();
 })();
