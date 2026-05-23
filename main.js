@@ -1,3 +1,43 @@
+
+// ── Language switch ────────────────────────────────────
+const LANG = {
+  zh: {
+    'sdg':   'SDG 8 — 体面工作与经济增长',
+    'title': '谁有权停留？',
+    'label': '校园设施管理系统',
+    'msg':   '请开始今日清洁任务',
+    's1': '广播声', 's2': '电流声', 's3': '对讲机',
+    'enter': '进入系统 ›',
+  },
+  en: {
+    'sdg':   'SDG 8 — DECENT WORK & ECONOMIC GROWTH',
+    'title': 'WHO HAS THE RIGHT TO STAY?',
+    'label': 'CAMPUS FACILITY MANAGEMENT SYSTEM',
+    'msg':   'PLEASE START TODAY'S CLEANING TASK',
+    's1': 'PA System', 's2': 'Electric hum', 's3': 'Walkie-talkie',
+    'enter': 'ENTER SYSTEM ›',
+  }
+};
+let currentLang = 'zh';
+
+window.setLang = function(lang) {
+  currentLang = lang;
+  const t = LANG[lang];
+  const ids = ['sdg','title','label','msg','s1','s2','s3','enter'];
+  ids.forEach(id => {
+    const el = document.getElementById('t-' + id);
+    if (el) el.textContent = t[id];
+  });
+  // title-en visibility
+  const en = document.getElementById('t-title-en');
+  if (en) en.style.display = lang === 'zh' ? 'block' : 'none';
+  // button states
+  document.getElementById('lang-zh').classList.toggle('active', lang === 'zh');
+  document.getElementById('lang-en').classList.toggle('active', lang === 'en');
+  // hud locale
+  if (hudStatus) hudStatus.textContent = lang === 'zh' ? '系统运行中' : 'SYSTEM ACTIVE';
+};
+
 (function () {
   'use strict';
 

@@ -34,19 +34,26 @@
        PAGE 1 — SYSTEM BOOT
   ══════════════════════════════════════════════════ -->
   <div class="page active" id="p0">
+    <div class="boot-bg-photo"></div>
+    <div class="boot-photo-overlay"></div>
     <div class="boot-wrap">
-      <div class="sdg-pill">SDG 8 — DECENT WORK &amp; ECONOMIC GROWTH</div>
-      <div class="boot-time">06:30</div>
-      <div class="boot-label">CAMPUS FACILITY MANAGEMENT SYSTEM</div>
-      <div class="boot-msg blink">PLEASE START TODAY'S CLEANING TASK</div>
-      <div class="boot-sub">— 请开始今日清洁任务 —</div>
-      <div class="boot-sounds">
-        <span class="sound-tag">📢 广播声</span>
-        <span class="sound-tag">⚡ 电流声</span>
-        <span class="sound-tag">📡 对讲机</span>
+      <div class="lang-switch">
+        <button class="lang-btn active" id="lang-zh" onclick="setLang('zh')">中文</button>
+        <span class="lang-sep">|</span>
+        <button class="lang-btn" id="lang-en" onclick="setLang('en')">EN</button>
       </div>
-      <button class="main-btn" onclick="goPage(1)">ENTER SYSTEM ›</button>
-      <div class="boot-question">WHO HAS THE RIGHT TO STAY?</div>
+      <div class="sdg-pill" id="t-sdg">SDG 8 — 体面工作与经济增长</div>
+      <div class="boot-title" id="t-title">谁有权停留？</div>
+      <div class="boot-title-en" id="t-title-en">WHO HAS THE RIGHT TO STAY?</div>
+      <div class="boot-time">06:30</div>
+      <div class="boot-label" id="t-label">校园设施管理系统</div>
+      <div class="boot-msg blink" id="t-msg">请开始今日清洁任务</div>
+      <div class="boot-sounds">
+        <span class="sound-tag">📢 <span id="t-s1">广播声</span></span>
+        <span class="sound-tag">⚡ <span id="t-s2">电流声</span></span>
+        <span class="sound-tag">📡 <span id="t-s3">对讲机</span></span>
+      </div>
+      <button class="main-btn" onclick="goPage(1)" id="t-enter">进入系统 ›</button>
     </div>
   </div>
 
